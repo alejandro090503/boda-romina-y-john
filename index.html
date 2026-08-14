@@ -574,9 +574,9 @@ section>*{position:relative;z-index:1}
   text-align:center;overflow:hidden;
 }
 .wheel-scene{
-  position:relative;width:100%;height:clamp(420px,120vw,540px);
+  position:relative;width:100%;height:clamp(440px,112vw,560px);
   margin:clamp(28px,7vw,36px) auto 0;
-  perspective:1400px;transform-style:preserve-3d;overflow:hidden;
+  perspective:1600px;transform-style:preserve-3d;overflow:hidden;
 }
 .wheel-ring{
   position:absolute;width:100%;height:100%;
@@ -584,15 +584,18 @@ section>*{position:relative;z-index:1}
 }
 .wheel-ring.dragging{cursor:grabbing}
 .wheel-card{
+  --cw:clamp(200px,52vw,270px);
+  --ch:clamp(280px,73vw,378px);
   position:absolute;
-  width:clamp(160px,44vw,210px);height:clamp(224px,62vw,294px);
+  width:var(--cw);height:var(--ch);
   left:50%;top:50%;
-  margin-left:clamp(-80px,-22vw,-105px);margin-top:clamp(-112px,-31vw,-147px);
-  border-radius:16px;overflow:hidden;
-  border:2px solid rgba(238,113,158,.25);
-  box-shadow:0 12px 40px rgba(238,113,158,.22),0 2px 8px rgba(0,0,0,.3);
+  margin-left:calc(var(--cw) / -2);margin-top:calc(var(--ch) / -2);
+  border-radius:18px;overflow:hidden;
+  border:2px solid rgba(238,113,158,.4);
+  box-shadow:0 16px 48px rgba(238,113,158,.3),0 4px 14px rgba(0,0,0,.28);
   user-select:none;-webkit-user-select:none;
   backface-visibility:hidden;
+  background:rgba(255,250,240,.5);
 }
 .wheel-card img{
   width:100%;height:100%;object-fit:cover;object-position:center;
@@ -805,13 +808,21 @@ section>*{position:relative;z-index:1}
 #env-flash{position:fixed;inset:0;background:#fff;z-index:9999;opacity:0;pointer-events:none}
 .envelope-hint{
   position:absolute;bottom:52px;left:50%;transform:translateX(-50%);
-  font-family:'Cormorant Garamond',serif;font-size:clamp(11px,3vw,13px);
-  letter-spacing:clamp(4px,1.2vw,6px);text-transform:uppercase;
-  color:rgba(238,113,158,.8);opacity:0;cursor:pointer;white-space:nowrap;z-index:10;
-  text-shadow:0 1px 6px rgba(0,0,0,.5);
+  display:inline-flex;align-items:center;gap:9px;
+  background:linear-gradient(135deg,rgba(255,255,255,.95),rgba(252,233,216,.9));
+  border:1.5px solid var(--gold);border-radius:50px;
+  padding:13px 24px;
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:16px;font-weight:600;letter-spacing:.04em;text-transform:none;
+  color:var(--gold-dk);opacity:0;cursor:pointer;white-space:nowrap;z-index:10;
+  box-shadow:0 6px 22px rgba(238,113,158,.32),0 2px 8px rgba(0,0,0,.18),inset 0 1px 0 rgba(255,255,255,.9);
+  animation:hintPulse 2.8s ease-in-out infinite;
 }
-.envelope-hint::after{content:'';display:block;width:32px;height:1px;background:linear-gradient(90deg,transparent,rgba(238,113,158,.5),transparent);margin:10px auto 0;animation:hintPulse 2.2s ease-in-out infinite}
-@keyframes hintPulse{0%,100%{opacity:.4;width:32px}50%{opacity:1;width:54px}}
+@keyframes hintPulse{
+  0%,100%{box-shadow:0 6px 22px rgba(238,113,158,.32),0 2px 8px rgba(0,0,0,.18),0 0 0 0 rgba(238,113,158,.38),inset 0 1px 0 rgba(255,255,255,.9)}
+  55%{box-shadow:0 6px 22px rgba(238,113,158,.32),0 2px 8px rgba(0,0,0,.18),0 0 0 13px rgba(238,113,158,0),inset 0 1px 0 rgba(255,255,255,.9)}
+}
+@media(prefers-reduced-motion:reduce){.envelope-hint{animation:none}}
 
 /* ── RSVP CONFIRMED ────────────────────── */
 .rsvp-confirmed-msg{
@@ -1278,11 +1289,11 @@ section>*{position:relative;z-index:1}
   <div class="gline"></div>
   <div class="wheel-scene" id="wheel-scene">
     <div class="wheel-ring" id="wheel-ring">
-      <div class="wheel-card"><img src="galeria.jpg" alt="Romina y John" loading="lazy"></div>
-      <div class="wheel-card"><img src="galeria.jpg" alt="Romina y John" loading="lazy"></div>
-      <div class="wheel-card"><img src="galeria.jpg" alt="Romina y John" loading="lazy"></div>
-      <div class="wheel-card"><img src="galeria.jpg" alt="Romina y John" loading="lazy"></div>
-      <div class="wheel-card"><img src="galeria.jpg" alt="Romina y John" loading="lazy"></div>
+      <div class="wheel-card"><img data-src="galeria.jpg" alt="Romina y John" width="800" height="1200" decoding="async"></div>
+      <div class="wheel-card"><img data-src="galeria.jpg" alt="Romina y John" width="800" height="1200" decoding="async"></div>
+      <div class="wheel-card"><img data-src="galeria.jpg" alt="Romina y John" width="800" height="1200" decoding="async"></div>
+      <div class="wheel-card"><img data-src="galeria.jpg" alt="Romina y John" width="800" height="1200" decoding="async"></div>
+      <div class="wheel-card"><img data-src="galeria.jpg" alt="Romina y John" width="800" height="1200" decoding="async"></div>
     </div>
   </div>
   <p class="gal-hint">Arrastra para girar</p>
@@ -1950,12 +1961,33 @@ function initWheel() {
   var cards = ring.querySelectorAll('.wheel-card');
   var n = cards.length;
   if (!n) return;
-  var radius = Math.min(165, window.innerWidth * 0.40);
+
+  /* carga diferida manual: loading="lazy" nunca dispara dentro de
+     tarjetas con translateZ, así que resolvemos el data-src aquí */
+  cards.forEach(function (card) {
+    var im = card.querySelector('img[data-src]');
+    if (im) { im.src = im.getAttribute('data-src'); im.removeAttribute('data-src'); }
+  });
+
+  /* radio derivado del ancho real de la tarjeta: con n tarjetas repartidas
+     en el círculo, la cuerda entre vecinas es 2·R·sen(π/n); el factor 1.12
+     deja una separación visible sin que se toquen en ningún tamaño */
+  var radius;
+  function layout() {
+    var cw = cards[0].offsetWidth || 200;
+    radius = (cw / (2 * Math.sin(Math.PI / n))) * 1.12;
+    cards.forEach(function (card, i) {
+      card.style.transform = 'rotateY(' + (360 / n * i) + 'deg) translateZ(' + radius + 'px)';
+    });
+  }
+  layout();
   var rot = 0, vel = 0, isDrag = false, startX = 0, startRot = 0, lastX = 0, rafId = null;
 
-  cards.forEach(function (card, i) {
-    card.style.transform = 'rotateY(' + (360 / n * i) + 'deg) translateZ(' + radius + 'px)';
-  });
+  var rzT;
+  window.addEventListener('resize', function () {
+    clearTimeout(rzT);
+    rzT = setTimeout(layout, 150);
+  }, { passive: true });
 
   function setRot() { gsap.set(ring, { rotateY: rot }); }
   setRot();
