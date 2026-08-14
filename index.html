@@ -506,8 +506,33 @@ section>*{position:relative;z-index:1}
 }
 .dc-note strong{font-family:'Cormorant Garamond',serif;font-size:clamp(14px,3.8vw,16px);color:var(--gold);display:block;margin-bottom:8px}
 .dc-note-expand{max-height:0;overflow:hidden;opacity:0;transition:max-height .5s ease,opacity .4s ease}
-.dc-note-expand.open{max-height:240px;opacity:1}
+.dc-note-expand.open{max-height:320px;opacity:1}
+
+/* ── BURBUJA "TOCA PARA ABRIR" ─────────── */
+#wandToggle{
+  display:inline-flex!important;align-items:center;gap:9px;
+  background:linear-gradient(135deg,rgba(255,255,255,.95),rgba(252,233,216,.9))!important;
+  border:1.5px solid var(--gold)!important;border-radius:50px!important;
+  padding:13px 22px!important;cursor:pointer;
+  color:var(--gold-dk)!important;font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:16px!important;font-weight:600;letter-spacing:.04em;
+  box-shadow:0 6px 20px rgba(238,113,158,.28),0 1px 3px rgba(0,0,0,.08),inset 0 1px 0 rgba(255,255,255,.9);
+  visibility:visible!important;opacity:1!important;
+  transition:transform .3s var(--spring),box-shadow .3s;
+  -webkit-tap-highlight-color:transparent;
+  animation:wandPulse 2.8s ease-in-out infinite;
+}
+#wandToggle:active{transform:scale(.95)}
+@keyframes wandPulse{
+  0%,100%{box-shadow:0 6px 20px rgba(238,113,158,.28),0 0 0 0 rgba(238,113,158,.35),inset 0 1px 0 rgba(255,255,255,.9)}
+  55%{box-shadow:0 6px 20px rgba(238,113,158,.28),0 0 0 12px rgba(238,113,158,0),inset 0 1px 0 rgba(255,255,255,.9)}
+}
+#wandToggle.open{animation:none}
 #wandToggle.open #wandIcon{transform:rotate(-25deg) scale(1.15)}
+@media(prefers-reduced-motion:reduce){#wandToggle{animation:none}}
+
+/* el botón de calendario nunca debe quedar oculto por una animación */
+#calBtn{visibility:visible!important}
 
 /* ── FAMILY ────────────────────────────── */
 #family{
@@ -661,6 +686,34 @@ section>*{position:relative;z-index:1}
 .gf-nt{font-size:clamp(12px,3.1vw,14px);letter-spacing:clamp(2px,.7vw,3px);text-transform:uppercase;color:var(--gold);opacity:.9;margin:12px 0 0;text-align:center}
 .gf-bank{padding:clamp(18px,5vw,24px) clamp(18px,5vw,24px) clamp(20px,5.5vw,26px)}
 .gf-bank-info{margin-top:16px;text-align:center}
+
+/* ── CAJA DE REGALO QUE SE ABRE CON CONFETI (de boda-ligia-y-guillermo) ── */
+.gbx{position:relative;text-align:center;margin-top:4px}
+.gbx-present{
+  width:150px;height:150px;margin:0 auto;display:block;padding:0;border:none;
+  background:none;cursor:pointer;position:relative;-webkit-tap-highlight-color:transparent;
+}
+.gbx-present svg{width:100%;height:100%;display:block;transform-origin:50% 100%}
+.gbx-lid{transform-origin:50% 100%;transition:transform .5s cubic-bezier(.34,1.56,.64,1)}
+.gbx-present.shake{animation:gbxShake .5s ease-in-out}
+@keyframes gbxShake{
+  0%,100%{transform:rotate(0)}15%{transform:rotate(-5deg)}30%{transform:rotate(4deg)}
+  45%{transform:rotate(-3deg)}60%{transform:rotate(2deg)}75%{transform:rotate(-1deg)}
+}
+.gbx.opened .gbx-present{animation:gbxTopple .7s cubic-bezier(.6,-.2,.7,1) forwards;pointer-events:none}
+@keyframes gbxTopple{
+  0%{transform:scale(1);opacity:1}40%{transform:scale(1.06)}
+  100%{transform:scale(.86) translateY(-12px);opacity:0}
+}
+.gbx.opened .gbx-lid{transform:translateY(-30px) rotate(-18deg)}
+.gbx-tap{
+  font-family:'Cormorant Garamond',serif;font-style:italic;font-size:16px;letter-spacing:1px;
+  color:var(--gold-dk);opacity:.95;margin-top:10px;overflow:hidden;
+  transition:opacity .3s,max-height .3s;
+}
+.gbx.opened .gbx-tap{opacity:0;max-height:0;margin:0}
+.gbx-confetti{position:absolute;top:38%;left:50%;width:0;height:0;pointer-events:none;z-index:10}
+.gbx-confetti-piece{position:absolute;opacity:0}
 .gf-bk-line{display:flex;justify-content:center;align-items:center;padding:10px 0;border-bottom:1px solid rgba(238,113,158,.07);font-size:clamp(12px,3.2vw,14px)}
 .gf-bk-line:last-of-type{border-bottom:none}
 .gf-bk-lbl{font-size:clamp(9px,2.4vw,11px);letter-spacing:2px;text-transform:uppercase;color:var(--ink-deep);opacity:.78;font-weight:600}
@@ -1008,18 +1061,37 @@ section>*{position:relative;z-index:1}
   <div class="gline"></div>
   <p class="gf-sub">Si deseas obsequiarnos algo especial,<br>compartimos contigo nuestras opciones.</p>
 
-  <button type="button" class="gift-box" id="giftBoxBtn" onclick="openGiftBox()" aria-expanded="false">
-    <svg class="gift-box-art" viewBox="0 0 120 120" fill="none" aria-hidden="true">
-      <rect x="18" y="50" width="84" height="56" rx="6" fill="#FCE9D8" stroke="var(--gold-dk)" stroke-width="2"/>
-      <rect x="12" y="38" width="96" height="20" rx="5" fill="#EE719E" stroke="var(--gold-dk)" stroke-width="2"/>
-      <rect x="54" y="38" width="12" height="68" fill="var(--gold-lt)"/>
-      <path d="M60 38 C 30 38, 30 10, 45 10 C 58 10, 60 28, 60 38 Z" fill="#EE719E" stroke="var(--gold-dk)" stroke-width="1.5"/>
-      <path d="M60 38 C 90 38, 90 10, 75 10 C 62 10, 60 28, 60 38 Z" fill="#EE719E" stroke="var(--gold-dk)" stroke-width="1.5"/>
-    </svg>
-    <span class="gift-box-hint">Toca la caja para ver los datos</span>
-  </button>
+  <div class="gbx" id="giftBox">
+    <button type="button" class="gbx-present" id="giftBtn"
+            aria-label="Abrir los datos de transferencia" aria-expanded="false" aria-controls="giftBoxContent">
+      <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <defs>
+          <linearGradient id="gbxBody" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#EE719E"/><stop offset="100%" stop-color="#B8447A"/>
+          </linearGradient>
+          <linearGradient id="gbxTop" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#F4A4C0"/><stop offset="100%" stop-color="#D9548C"/>
+          </linearGradient>
+          <linearGradient id="gbxRib" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#FEE4A8"/><stop offset="100%" stop-color="#C9A044"/>
+          </linearGradient>
+        </defs>
+        <rect x="22" y="52" width="76" height="54" rx="6" fill="url(#gbxBody)"/>
+        <rect x="54" y="52" width="12" height="54" fill="url(#gbxRib)" opacity=".9"/>
+        <g class="gbx-lid">
+          <rect x="16" y="40" width="88" height="17" rx="5" fill="url(#gbxTop)"/>
+          <rect x="54" y="40" width="12" height="17" fill="url(#gbxRib)" opacity=".9"/>
+          <path d="M60 41 C48 22 30 26 39 41 Z" fill="url(#gbxRib)"/>
+          <path d="M60 41 C72 22 90 26 81 41 Z" fill="url(#gbxRib)"/>
+          <circle cx="60" cy="40" r="6" fill="url(#gbxRib)"/>
+        </g>
+      </svg>
+    </button>
+    <div class="gbx-confetti" id="giftConfetti" aria-hidden="true"></div>
+    <p class="gbx-tap">Toca el regalo</p>
+  </div>
 
-  <div class="gf-card gf-bank gift-box-expand" id="giftBoxContent">
+  <div class="gf-card gf-bank" id="giftBoxContent" hidden>
     <div class="gf-card-top">
       <div class="gf-logo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-6 9 6M5 10v9h14v-9M8 14v3M12 14v3M16 14v3M3 19h18"/></svg></div>
       <p class="gf-ttl">Transferencia</p>
@@ -1152,9 +1224,9 @@ section>*{position:relative;z-index:1}
   </div>
 
   <div style="margin-top:26px;text-align:center">
-    <button type="button" id="wandToggle" onclick="document.getElementById('dcNoteBody').classList.toggle('open');this.classList.toggle('open')" style="background:none;border:none;cursor:pointer;display:inline-flex;align-items:center;gap:8px;color:var(--gold);font-family:'Cormorant Garamond',serif;font-style:italic;font-size:15px;letter-spacing:.06em;padding:6px 4px;-webkit-tap-highlight-color:transparent">
-      <span style="font-size:18px;display:inline-block;transition:transform .4s var(--spring)" id="wandIcon">🪄</span>
-      <span>Nuestro toque especial — toca para abrir</span>
+    <button type="button" id="wandToggle" onclick="document.getElementById('dcNoteBody').classList.toggle('open');this.classList.toggle('open')">
+      <span style="font-size:19px;display:inline-block;transition:transform .4s var(--spring)" id="wandIcon">🪄</span>
+      <span>Nuestro toque especial</span>
     </button>
     <div id="dcNoteBody" class="dc-note-expand">
       <p style="font-family:'Playfair Display',serif;font-style:italic;font-size:clamp(15px,4vw,17px);line-height:1.85;color:var(--ink-deep);opacity:.92;text-align:center;padding:18px 6px 4px;max-width:420px;margin:0 auto">
@@ -1506,11 +1578,12 @@ function scrollAnims() {
     scrollTrigger: { trigger: '#location', start: 'top 78%', once: true }
   });
 
-  gsap.from(['#calendar .cal-sub', '#calBtn'], {
-    opacity: 0, y: 20, scale: .95, duration: .7, stagger: .15,
-    ease: 'back.out(1.3)',
-    scrollTrigger: { trigger: '#calendar', start: 'top 84%', once: true }
-  });
+  gsap.fromTo(['#calendar .cal-sub', '#calBtn'],
+    { opacity: 0, y: 20, scale: .95 },
+    { opacity: 1, y: 0, scale: 1, duration: .7, stagger: .15,
+      ease: 'back.out(1.3)', clearProps: 'opacity,visibility,transform',
+      scrollTrigger: { trigger: '#calendar', start: 'top 92%', once: true }
+    });
 
   /* Itinerario V3 — Centered Glowing Timeline */
   (function(){
@@ -1932,42 +2005,56 @@ function initWheel() {
   ring.addEventListener('touchstart', function () { auto = false; });
 }
 
-/* ── CAJA DE REGALO · CONFETTI ─────────────────────── */
-function openGiftBox() {
-  const btn = document.getElementById('giftBoxBtn');
-  const content = document.getElementById('giftBoxContent');
-  if (content.classList.contains('open')) return;
-  btn.classList.add('opened');
-  btn.setAttribute('aria-expanded', 'true');
-  content.classList.add('open');
-  fireConfetti(btn.getBoundingClientRect());
-  setTimeout(() => content.scrollIntoView({ behavior: 'smooth', block: 'center' }), 350);
-}
-function fireConfetti(rect) {
-  const colors = ['#EE719E', '#FECB3E', '#FFFFFF', '#F4A4C0', '#D9548C'];
-  const cx = rect.left + rect.width / 2;
-  const cy = rect.top + rect.height / 2;
-  for (let i = 0; i < 46; i++) {
-    const p = document.createElement('div');
-    p.className = 'confetti-piece';
-    const size = 5 + Math.random() * 6;
-    p.style.width = size + 'px';
-    p.style.height = (size * 0.4) + 'px';
-    p.style.background = colors[i % colors.length];
-    p.style.left = cx + 'px';
-    p.style.top = cy + 'px';
-    document.body.appendChild(p);
-    const angle = Math.random() * Math.PI * 2;
-    const dist = 90 + Math.random() * 160;
-    const dx = Math.cos(angle) * dist;
-    const dy = Math.sin(angle) * dist - 120;
-    gsap.to(p, {
-      x: dx, y: dy + 260, rotation: (Math.random() - 0.5) * 720,
-      opacity: 0, duration: 1.5 + Math.random() * 0.8, ease: 'power1.out',
-      onComplete: () => p.remove()
-    });
+/* ── CAJA DE REGALO QUE SE ABRE CON CONFETI ────────── */
+(function(){
+  var box  = document.getElementById('giftBox'),
+      btn  = document.getElementById('giftBtn'),
+      conf = document.getElementById('giftConfetti'),
+      cont = document.getElementById('giftBoxContent');
+  if(!box || !btn || !cont) return;
+
+  function abrir(){
+    if(box.classList.contains('opened')) return;
+    btn.classList.add('shake');
+    btn.setAttribute('aria-expanded','true');
+
+    setTimeout(function(){
+      box.classList.add('opened');
+
+      /* confeti en la paleta de la invitación: fucsia, dorado y blanco */
+      var colores = ['#EE719E','#FECB3E','#FFFFFF','#F4A4C0','#D9548C','#FEE4A8'];
+      var quieto = matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if(!quieto && window.gsap){
+        for(var i=0;i<34;i++){
+          var p=document.createElement('div');
+          p.className='gbx-confetti-piece';
+          p.style.background=colores[i%colores.length];
+          var sz=5+Math.random()*7;
+          p.style.width=sz+'px';p.style.height=sz+'px';
+          p.style.borderRadius=Math.random()>.5?'50%':'2px';
+          conf.appendChild(p);
+          var ang=Math.random()*Math.PI*2, d=55+Math.random()*105;
+          gsap.fromTo(p,{opacity:1,x:0,y:0,scale:1,rotation:0},
+            {x:Math.cos(ang)*d, y:Math.sin(ang)*d-46, opacity:0, scale:.2,
+             rotation:Math.random()*720-360, duration:.9+Math.random()*.5,
+             ease:'power2.out', delay:Math.random()*.12,
+             onComplete:function(){var t=this.targets()[0];if(t&&t.remove)t.remove()}});
+        }
+      }
+
+      cont.hidden=false;
+      if(window.gsap){
+        gsap.fromTo(cont,{opacity:0,y:22},
+          {opacity:1,y:0,duration:.7,ease:'power2.out',delay:.15});
+      }
+      if(window.ScrollTrigger) ScrollTrigger.refresh();
+    },480);
+
+    setTimeout(function(){btn.style.display='none'},1200);
   }
-}
+
+  btn.addEventListener('click', abrir);
+})();
 
 /* ── COPY CLABE ────────────────────────────────────── */
 function copyCuenta(id) {
