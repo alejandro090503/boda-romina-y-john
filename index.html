@@ -29,6 +29,7 @@
   --spring:    cubic-bezier(.34,1.56,.64,1);
   --smooth:    cubic-bezier(.25,.46,.45,.94);
   --card-bg:   rgba(255,250,240,.55);
+  --gold-dk:   #7A5209;
   --card-border: rgba(238,113,158,.14);
   --glow:      rgba(238,113,158,.08);
 }
@@ -206,13 +207,13 @@ section>*{position:relative;z-index:1}
 .btn:active::before{opacity:1}
 .btn+.btn{margin-top:12px}
 .btn-gold{
-  background:linear-gradient(135deg,var(--gold),var(--gold-lt));color:#1A0710;font-weight:700;
-  border:none;
-  box-shadow:0 4px 22px rgba(238,113,158,.45),0 1px 3px rgba(0,0,0,.3),0 0 20px rgba(238,113,158,.2);
+  background:linear-gradient(135deg,#D9548C,var(--gold-lt));color:#fff;font-weight:700;
+  border:2px solid rgba(184,68,122,.4);
+  box-shadow:0 10px 32px rgba(217,84,140,.5),0 2px 10px rgba(0,0,0,.18);
   transition:all .3s var(--spring);
-  text-shadow:0 1px 2px rgba(0,0,0,.3);
+  text-shadow:0 1px 3px rgba(0,0,0,.3);
 }
-.btn-gold:active{background:linear-gradient(135deg,var(--gold-lt),var(--gold));transform:scale(.96)}
+.btn-gold:active{background:linear-gradient(135deg,var(--gold-lt),#D9548C);transform:scale(.96)}
 
 /* ── SECTION DIVIDERS ──────────────────── */
 .sec-divider{
@@ -362,6 +363,20 @@ section>*{position:relative;z-index:1}
   background:radial-gradient(circle,rgba(238,113,158,.06),transparent 70%);
   pointer-events:none;
 }
+.loc-card-shine{position:relative}
+.loc-shine-sweep{
+  position:absolute;top:0;left:-60%;width:38%;height:100%;
+  background:linear-gradient(100deg,transparent 0%,rgba(255,255,255,.65) 45%,rgba(254,203,62,.55) 58%,transparent 100%);
+  transform:skewX(-18deg);
+  animation:locShine 5.5s ease-in-out infinite;
+  pointer-events:none;z-index:2;
+}
+@keyframes locShine{
+  0%{left:-60%}
+  38%{left:130%}
+  100%{left:130%}
+}
+@media(prefers-reduced-motion:reduce){.loc-shine-sweep{animation:none;display:none}}
 .loc-type{font-size:clamp(8px,2.2vw,10px);letter-spacing:clamp(3px,1vw,5px);text-transform:uppercase;color:var(--gold);margin-bottom:14px;font-weight:500}
 .loc-name{font-family:'Cormorant Garamond',serif;font-size:clamp(21px,5.5vw,25px);font-weight:600;color:var(--ink-deep);line-height:1.35}
 .loc-time{
@@ -441,7 +456,7 @@ section>*{position:relative;z-index:1}
 }
 .itv3-ev{
   font-family:'Cormorant Garamond',serif;font-style:italic;
-  font-size:15px;color:rgba(255,255,255,0.85);
+  font-size:15px;color:var(--gold-dk);font-weight:600;
   letter-spacing:3px;text-transform:uppercase;line-height:1.5;
   text-indent:3px;
 }
@@ -902,23 +917,22 @@ section>*{position:relative;z-index:1}
   <h2 class="ttl">La Celebración</h2>
   <div class="gline"></div>
 
-  <div class="loc-card">
-    <p class="loc-type" style="text-align:center">✦  Ceremonia Religiosa</p>
-    <h3 class="loc-name" style="text-align:center;font-family:'Great Vibes',cursive;font-size:clamp(28px,8vw,38px)">Infinity Ballroom Orlando</h3>
-    <div class="loc-time" style="text-align:center">4:00 <em>PM</em></div>
-    <p class="loc-addr" style="text-align:center">2151 Consulate Dr, Ste 16<br>Orlando, FL 32837</p>
-    <a href="https://maps.app.goo.gl/jcYTJpkJaeee5mid9?g_st=ic"
-       target="_blank" rel="noopener" class="btn" style="max-width:310px;margin:0 auto">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-      Ver en GPS / Google Maps
-    </a>
-  </div>
-
-  <div class="loc-card">
-    <p class="loc-type" style="text-align:center">✦  Recepción</p>
-    <h3 class="loc-name" style="text-align:center;font-family:'Great Vibes',cursive;font-size:clamp(28px,8vw,38px)">Infinity Ballroom Orlando</h3>
-    <div class="loc-time" style="text-align:center">5:30 <em>PM</em></div>
-    <p class="loc-addr" style="text-align:center">2151 Consulate Dr, Ste 16<br>Orlando, FL 32837</p>
+  <div class="loc-card loc-card-shine">
+    <div class="loc-shine-sweep"></div>
+    <p class="loc-type" style="text-align:center">✦  Infinity Ballroom Orlando</p>
+    <h3 class="loc-name" style="text-align:center;font-family:'Great Vibes',cursive;font-size:clamp(28px,8vw,38px)">Ceremonia &amp; Recepción</h3>
+    <div style="display:flex;justify-content:center;align-items:stretch;gap:clamp(18px,6vw,34px);margin:18px 0 6px;flex-wrap:wrap">
+      <div style="text-align:center">
+        <div class="loc-time" style="font-size:clamp(30px,8vw,40px)">4:00 <em>PM</em></div>
+        <p class="loc-type" style="margin-top:4px;font-size:11px">Ceremonia</p>
+      </div>
+      <div style="width:1px;background:rgba(238,113,158,.25)"></div>
+      <div style="text-align:center">
+        <div class="loc-time" style="font-size:clamp(30px,8vw,40px)">5:30 <em>PM</em></div>
+        <p class="loc-type" style="margin-top:4px;font-size:11px">Recepción</p>
+      </div>
+    </div>
+    <p class="loc-addr" style="text-align:center;margin-top:8px">2151 Consulate Dr, Ste 16<br>Orlando, FL 32837</p>
     <a href="https://maps.app.goo.gl/jcYTJpkJaeee5mid9?g_st=ic"
        target="_blank" rel="noopener" class="btn" style="max-width:310px;margin:0 auto">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
@@ -940,7 +954,7 @@ section>*{position:relative;z-index:1}
   <p class="cal-sub">Agrega nuestra boda a tu calendario<br>para no perderte ni un momento.</p>
   <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Boda+de+Romina+%26+John&dates=20261107T200000Z/20261108T030000Z&details=Ceremonia+Religiosa+4:00+PM+-+Infinity+Ballroom+Orlando&location=Infinity+Ballroom+Orlando%2C+2151+Consulate+Dr+Ste+16%2C+Orlando%2C+FL+32837"
      target="_blank" rel="noopener" id="calBtn"
-     class="btn btn-gold" style="max-width:310px;margin:0 auto;display:flex;padding:16px 24px;font-size:clamp(11px,3vw,13px);letter-spacing:3px;border:none;box-shadow:0 6px 28px rgba(238,113,158,.55),0 0 30px rgba(238,113,158,.25),0 2px 4px rgba(0,0,0,.3)">
+     class="btn btn-gold" style="max-width:310px;margin:0 auto;display:flex;padding:16px 24px;font-size:clamp(11px,3vw,13px);letter-spacing:3px">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
     Agregar a Google Calendar
   </a>
@@ -994,7 +1008,18 @@ section>*{position:relative;z-index:1}
   <div class="gline"></div>
   <p class="gf-sub">Si deseas obsequiarnos algo especial,<br>compartimos contigo nuestras opciones.</p>
 
-  <div class="gf-card gf-bank">
+  <button type="button" class="gift-box" id="giftBoxBtn" onclick="openGiftBox()" aria-expanded="false">
+    <svg class="gift-box-art" viewBox="0 0 120 120" fill="none" aria-hidden="true">
+      <rect x="18" y="50" width="84" height="56" rx="6" fill="#FCE9D8" stroke="var(--gold-dk)" stroke-width="2"/>
+      <rect x="12" y="38" width="96" height="20" rx="5" fill="#EE719E" stroke="var(--gold-dk)" stroke-width="2"/>
+      <rect x="54" y="38" width="12" height="68" fill="var(--gold-lt)"/>
+      <path d="M60 38 C 30 38, 30 10, 45 10 C 58 10, 60 28, 60 38 Z" fill="#EE719E" stroke="var(--gold-dk)" stroke-width="1.5"/>
+      <path d="M60 38 C 90 38, 90 10, 75 10 C 62 10, 60 28, 60 38 Z" fill="#EE719E" stroke="var(--gold-dk)" stroke-width="1.5"/>
+    </svg>
+    <span class="gift-box-hint">Toca la caja para ver los datos</span>
+  </button>
+
+  <div class="gf-card gf-bank gift-box-expand" id="giftBoxContent">
     <div class="gf-card-top">
       <div class="gf-logo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-6 9 6M5 10v9h14v-9M8 14v3M12 14v3M16 14v3M3 19h18"/></svg></div>
       <p class="gf-ttl">Transferencia</p>
@@ -1107,10 +1132,10 @@ section>*{position:relative;z-index:1}
   <span class="lbl">Vestimenta</span>
   <h2 class="ttl">Código de Vestimenta</h2>
   <div class="gline"></div>
-  <p class="dc-sub" style="font-family:'Great Vibes',cursive;font-size:clamp(32px,9vw,48px);color:#fff;opacity:1;line-height:1.3;letter-spacing:1px">Black Tie</p>
+  <p class="dc-sub" style="font-family:'Great Vibes',cursive;font-size:clamp(32px,9vw,48px);color:var(--gold-dk);opacity:1;line-height:1.3;letter-spacing:1px">Black Tie</p>
   <p style="text-align:center;margin-top:-6px;font-family:'Cormorant Garamond',serif;font-size:clamp(15px,4vw,18px);letter-spacing:.16em;text-transform:uppercase;color:var(--gold-lt);font-weight:600"><span class="gold-shine">Touch of Gold</span></p>
 
-  <p style="margin-top:20px;font-size:clamp(16px,4vw,18px);line-height:1.65;color:#fff;opacity:.88;text-align:center;font-weight:500;font-family:'Cormorant Garamond',serif;font-style:italic">
+  <p style="margin-top:20px;font-size:clamp(16px,4vw,18px);line-height:1.65;color:var(--gold-dk);opacity:1;text-align:center;font-weight:600;font-family:'Cormorant Garamond',serif;font-style:italic">
     Queremos una noche elegante, mágica y llena de brillo.<br>
     Vestimenta formal rigurosa: vestido largo para ellas,<br>traje oscuro con corbata para ellos.
   </p>
@@ -1125,9 +1150,6 @@ section>*{position:relative;z-index:1}
       <div class="dc-col-ttl">Damas</div>
     </div>
   </div>
-
-  <img src="vestimenta.jpg" alt="Inspiración de vestimenta — Black Tie con toques dorados y fucsia" loading="lazy"
-       style="width:100%;border-radius:14px;margin-top:16px;border:1px solid rgba(238,113,158,.28);box-shadow:0 8px 32px rgba(0,0,0,.35)">
 
   <div style="margin-top:26px;text-align:center">
     <button type="button" id="wandToggle" onclick="document.getElementById('dcNoteBody').classList.toggle('open');this.classList.toggle('open')" style="background:none;border:none;cursor:pointer;display:inline-flex;align-items:center;gap:8px;color:var(--gold);font-family:'Cormorant Garamond',serif;font-style:italic;font-size:15px;letter-spacing:.06em;padding:6px 4px;-webkit-tap-highlight-color:transparent">
@@ -1149,12 +1171,12 @@ section>*{position:relative;z-index:1}
     <div class="pal-item"><div class="pal-sw" style="background:#F4A4C0"></div><p class="pal-nm">Rosa</p></div>
   </div>
 
-  <p style="margin-top:24px;font-family:'Cormorant Garamond',serif;font-size:clamp(15px,4vw,17px);letter-spacing:.14em;text-transform:uppercase;color:#fff;opacity:.8;text-align:center;font-weight:600;margin-bottom:12px">Por favor evitar</p>
+  <p style="margin-top:24px;font-family:'Cormorant Garamond',serif;font-size:clamp(15px,4vw,17px);letter-spacing:.14em;text-transform:uppercase;color:var(--gold-dk);opacity:1;text-align:center;font-weight:700;margin-bottom:12px">Por favor evitar</p>
   <div class="palette">
     <div class="pal-item"><div class="pal-sw" style="background:#FFFFFF;border-color:rgba(238,113,158,.4)"></div><p class="pal-nm">Blanco / Ivory</p></div>
     <div class="pal-item"><div class="pal-sw" style="background:#E22400"></div><p class="pal-nm">Rojo intenso</p></div>
   </div>
-  <p style="margin-top:16px;font-size:clamp(14px,3.6vw,16px);line-height:1.7;color:#fff;opacity:.75;text-align:center;font-weight:500">
+  <p style="margin-top:16px;font-size:clamp(14px,3.6vw,16px);line-height:1.7;color:var(--gold-dk);opacity:1;text-align:center;font-weight:600">
     Queremos que brilles — pero que el fucsia y el dorado<br>sean los protagonistas de la noche.
   </p>
 </section>
@@ -1908,6 +1930,43 @@ function initWheel() {
   })();
   ring.addEventListener('mousedown', function () { auto = false; });
   ring.addEventListener('touchstart', function () { auto = false; });
+}
+
+/* ── CAJA DE REGALO · CONFETTI ─────────────────────── */
+function openGiftBox() {
+  const btn = document.getElementById('giftBoxBtn');
+  const content = document.getElementById('giftBoxContent');
+  if (content.classList.contains('open')) return;
+  btn.classList.add('opened');
+  btn.setAttribute('aria-expanded', 'true');
+  content.classList.add('open');
+  fireConfetti(btn.getBoundingClientRect());
+  setTimeout(() => content.scrollIntoView({ behavior: 'smooth', block: 'center' }), 350);
+}
+function fireConfetti(rect) {
+  const colors = ['#EE719E', '#FECB3E', '#FFFFFF', '#F4A4C0', '#D9548C'];
+  const cx = rect.left + rect.width / 2;
+  const cy = rect.top + rect.height / 2;
+  for (let i = 0; i < 46; i++) {
+    const p = document.createElement('div');
+    p.className = 'confetti-piece';
+    const size = 5 + Math.random() * 6;
+    p.style.width = size + 'px';
+    p.style.height = (size * 0.4) + 'px';
+    p.style.background = colors[i % colors.length];
+    p.style.left = cx + 'px';
+    p.style.top = cy + 'px';
+    document.body.appendChild(p);
+    const angle = Math.random() * Math.PI * 2;
+    const dist = 90 + Math.random() * 160;
+    const dx = Math.cos(angle) * dist;
+    const dy = Math.sin(angle) * dist - 120;
+    gsap.to(p, {
+      x: dx, y: dy + 260, rotation: (Math.random() - 0.5) * 720,
+      opacity: 0, duration: 1.5 + Math.random() * 0.8, ease: 'power1.out',
+      onComplete: () => p.remove()
+    });
+  }
 }
 
 /* ── COPY CLABE ────────────────────────────────────── */
