@@ -333,6 +333,74 @@ section>*{position:relative;z-index:1}
   text-shadow:0 2px 14px rgba(0,0,0,.55),0 1px 3px rgba(0,0,0,.4);
 }
 
+
+/* ── SELECTOR DE IDIOMA ────────────────────── */
+#lang-gate{
+  position:fixed;inset:0;z-index:10001;
+  display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(170deg,#FFFDF8 0%,#F7EFE0 55%,#F2E4CC 100%);
+  transition:opacity .9s ease;
+}
+#lang-gate.gone{opacity:0;pointer-events:none}
+.lg-inner{text-align:center;padding:32px 26px;max-width:400px;width:100%}
+.lg-mono{
+  width:min(220px,58vw);aspect-ratio:900/627;margin:0 auto 18px;
+  -webkit-mask:url(iniciales.png) center/contain no-repeat;
+  mask:url(iniciales.png) center/contain no-repeat;
+  background-image:linear-gradient(100deg,#8a6216 0%,#fceabb 22%,#d4af37 45%,#fef6d8 55%,#b8860b 72%,#fceabb 88%,#8a6216 100%);
+  background-size:220% auto;
+  animation:goldShine 6s linear infinite;
+}
+.lg-names{
+  font-family:'Great Vibes',cursive;font-size:clamp(30px,9vw,40px);
+  color:var(--gold-dk);line-height:1.1;
+}
+.lg-rule{
+  width:60px;height:1px;margin:18px auto 22px;
+  background:linear-gradient(to right,transparent,rgba(184,145,47,.7),transparent);
+}
+.lg-ask{
+  font-family:'Cormorant Garamond',serif;font-size:clamp(17px,4.5vw,20px);
+  font-weight:600;color:var(--ink-deep);line-height:1.4;margin-bottom:24px;
+}
+.lg-ask span{
+  display:block;font-style:italic;font-weight:500;
+  font-size:clamp(14px,3.7vw,16px);color:var(--gold-dk);opacity:.9;margin-top:4px;
+}
+.lg-btns{display:flex;flex-direction:column;gap:12px;max-width:260px;margin:0 auto}
+.lg-btn{
+  font-family:'Raleway',sans-serif;font-size:13px;font-weight:700;
+  letter-spacing:.2em;text-transform:uppercase;
+  color:#3A2708;padding:16px 20px;border-radius:50px;cursor:pointer;
+  background:linear-gradient(135deg,#FECB3E,#C9A227);
+  border:1px solid rgba(122,82,9,.35);
+  box-shadow:0 8px 24px rgba(184,145,47,.4),inset 0 1px 0 rgba(255,255,255,.6);
+  -webkit-tap-highlight-color:transparent;
+  transition:transform .25s var(--spring);
+}
+.lg-btn:active{transform:scale(.95)}
+
+/* ── MONOGRAMA R&J (hero y footer) ─────────── */
+.mono-rj{
+  -webkit-mask:url(iniciales.png) center/contain no-repeat;
+  mask:url(iniciales.png) center/contain no-repeat;
+  background-image:linear-gradient(100deg,#8a6216 0%,#fceabb 22%,#d4af37 45%,#fef6d8 55%,#b8860b 72%,#fceabb 88%,#8a6216 100%);
+  background-size:220% auto;
+  animation:goldShine 6s linear infinite;
+  margin:0 auto;
+}
+.mono-hero{
+  width:min(240px,62vw);aspect-ratio:900/627;
+  filter:drop-shadow(0 2px 12px rgba(0,0,0,.45));
+}
+.mono-foot{
+  width:min(200px,52vw);aspect-ratio:900/627;
+  margin-bottom:6px;
+}
+@media(prefers-reduced-motion:reduce){
+  .mono-rj,.lg-mono{animation:none}
+}
+
 /* ── COUNTDOWN ─────────────────────────── */
 #countdown{
   background:
@@ -842,6 +910,117 @@ section>*{position:relative;z-index:1}
 
 
 
+
+/* ── MODAL MESA DE REGALOS ─────────────────── */
+.gm-back{
+  position:fixed;inset:0;z-index:10002;
+  display:flex;align-items:center;justify-content:center;padding:18px;
+  background:rgba(40,26,10,.45);
+  backdrop-filter:blur(9px);-webkit-backdrop-filter:blur(9px);
+  opacity:0;transition:opacity .4s ease;
+}
+.gm-back.on{opacity:1}
+.gm-card{
+  position:relative;width:100%;max-width:390px;
+  max-height:86vh;overflow-y:auto;-webkit-overflow-scrolling:touch;
+  background:linear-gradient(165deg,#FFFDF7 0%,#FDF4E4 100%);
+  border:1px solid rgba(184,145,47,.45);border-radius:20px;
+  padding:26px 20px 22px;text-align:center;
+  box-shadow:0 26px 70px rgba(40,26,10,.4);
+  transform:translateY(22px) scale(.96);
+  transition:transform .45s cubic-bezier(.34,1.56,.64,1);
+}
+.gm-back.on .gm-card{transform:none}
+.gm-x{
+  position:absolute;top:10px;right:12px;
+  width:36px;height:36px;border-radius:50%;
+  background:rgba(184,145,47,.12);border:1px solid rgba(184,145,47,.35);
+  color:var(--gold-dk);font-size:24px;line-height:1;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  -webkit-tap-highlight-color:transparent;transition:transform .2s var(--spring);
+}
+.gm-x:active{transform:scale(.9)}
+.gm-eyebrow{
+  font-size:clamp(10px,2.7vw,11px);letter-spacing:.22em;text-transform:uppercase;
+  color:var(--gold-dk);font-weight:700;margin-bottom:6px;
+}
+.gm-ttl{
+  font-family:'Great Vibes',cursive;font-size:clamp(28px,8vw,34px);
+  color:var(--gold-dk);line-height:1.15;font-weight:400;
+}
+.gm-rule{
+  width:52px;height:1px;margin:12px auto 16px;
+  background:linear-gradient(to right,transparent,rgba(184,145,47,.7),transparent);
+}
+.gm-tabs{display:flex;gap:6px;justify-content:center;margin-bottom:16px;flex-wrap:wrap}
+.gm-tab{
+  font-family:'Raleway',sans-serif;font-size:clamp(10px,2.7vw,11.5px);
+  font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--gold-dk);background:rgba(255,255,255,.7);
+  border:1px solid rgba(184,145,47,.35);border-radius:40px;
+  padding:9px 13px;cursor:pointer;-webkit-tap-highlight-color:transparent;
+  transition:background .25s,color .25s;
+}
+.gm-tab.is-on{background:linear-gradient(135deg,#FECB3E,#C9A227);color:#3A2708;border-color:rgba(122,82,9,.4)}
+.gm-viewport{overflow:hidden}
+.gm-track{display:flex;transition:transform .45s cubic-bezier(.4,0,.2,1)}
+.gm-slide{min-width:100%;padding:4px 2px 2px}
+.gm-icon{color:var(--gold-dk);margin-bottom:10px}
+.gm-icon svg{width:26px;height:26px}
+.gm-note{
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:clamp(14px,3.7vw,16px);line-height:1.6;
+  color:var(--ink-deep);opacity:.9;margin-bottom:12px;
+}
+.gm-addr{
+  font-family:'Cormorant Garamond',serif;font-size:clamp(16px,4.2vw,19px);
+  font-weight:600;line-height:1.5;color:var(--gold-dk);margin-bottom:14px;
+}
+.gm-bank{
+  font-family:'Cormorant Garamond',serif;font-size:clamp(18px,4.8vw,21px);
+  font-weight:700;color:var(--ink-deep);margin-bottom:14px;
+}
+.gm-bank span{font-size:.72em;color:var(--gold-dk)}
+.gm-row{
+  display:flex;align-items:center;gap:8px;text-align:left;
+  background:rgba(255,255,255,.75);
+  border:1px solid rgba(184,145,47,.25);border-radius:11px;
+  padding:11px 12px;margin-bottom:9px;
+}
+.gm-lbl{
+  flex:0 0 40%;font-size:clamp(11px,2.9vw,12px);font-weight:700;
+  letter-spacing:.04em;color:var(--gold-dk);line-height:1.3;
+}
+.gm-val{
+  flex:1;font-family:'Raleway',sans-serif;font-size:clamp(13px,3.4vw,15px);
+  font-weight:600;color:var(--ink-deep);letter-spacing:.02em;
+  word-break:break-all;line-height:1.35;
+}
+.gm-copy{
+  flex-shrink:0;width:34px;height:34px;border-radius:9px;
+  background:rgba(184,145,47,.14);border:1px solid rgba(184,145,47,.35);
+  color:var(--gold-dk);cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  -webkit-tap-highlight-color:transparent;transition:transform .2s var(--spring);
+}
+.gm-copy:active{transform:scale(.88)}
+.gm-btn{
+  font-family:'Raleway',sans-serif;font-size:clamp(11px,2.9vw,12px);
+  font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+  color:#3A2708;background:linear-gradient(135deg,#FECB3E,#C9A227);
+  border:1px solid rgba(122,82,9,.35);border-radius:40px;
+  padding:13px 22px;cursor:pointer;
+  box-shadow:0 6px 18px rgba(184,145,47,.35);
+  -webkit-tap-highlight-color:transparent;transition:transform .25s var(--spring);
+}
+.gm-btn:active{transform:scale(.95)}
+.gm-dots{display:flex;gap:7px;justify-content:center;margin-top:14px}
+.gm-dots span{
+  width:7px;height:7px;border-radius:50%;
+  background:rgba(184,145,47,.3);transition:background .25s,transform .25s;
+}
+.gm-dots span.is-on{background:var(--gold-dk);transform:scale(1.3)}
+
 /* ── SOLO ADULTOS ──────────────────────────── */
 #kids-policy{background:#151009;text-align:center}
 #kids-policy::before{opacity:.25}
@@ -924,7 +1103,7 @@ section>*{position:relative;z-index:1}
   0%,100%{transform:rotate(0)}15%{transform:rotate(-5deg)}30%{transform:rotate(4deg)}
   45%{transform:rotate(-3deg)}60%{transform:rotate(2deg)}75%{transform:rotate(-1deg)}
 }
-.gbx.opened .gbx-present{animation:gbxTopple .7s cubic-bezier(.6,-.2,.7,1) forwards;pointer-events:none}
+.gbx.opened .gbx-present{animation:gbxTopple .7s cubic-bezier(.6,-.2,.7,1) forwards}
 @keyframes gbxTopple{
   0%{transform:scale(1);opacity:1}40%{transform:scale(1.06)}
   100%{transform:scale(.86) translateY(-12px);opacity:0}
@@ -935,7 +1114,7 @@ section>*{position:relative;z-index:1}
   color:var(--gold-dk);opacity:.95;margin-top:10px;overflow:hidden;
   transition:opacity .3s,max-height .3s;
 }
-.gbx.opened .gbx-tap{opacity:0;max-height:0;margin:0}
+.gbx.opened .gbx-tap{opacity:.75}
 .gbx-confetti{position:absolute;top:38%;left:50%;width:0;height:0;pointer-events:none;z-index:10}
 .gbx-confetti-piece{position:absolute;opacity:0}
 .gf-bk-line{display:flex;justify-content:center;align-items:center;padding:10px 0;border-bottom:1px solid rgba(184,145,47,.07);font-size:clamp(12px,3.2vw,14px)}
@@ -1021,6 +1200,7 @@ section>*{position:relative;z-index:1}
 }
 .el-credit:hover{opacity:.8}
 .el-credit svg{opacity:.85}
+
 
 /* ── ENVELOPE ──────────────────────────── */
 #envelope-screen{position:fixed;inset:0;z-index:10000;overflow:hidden;cursor:pointer;opacity:0;background:#000000}
@@ -1120,6 +1300,20 @@ section>*{position:relative;z-index:1}
 <body>
 <canvas id="globalSparkles"></canvas>
 
+<!-- SELECTOR DE IDIOMA -->
+<div id="lang-gate" role="dialog" aria-label="Elige tu idioma / Choose your language">
+  <div class="lg-inner">
+    <div class="lg-mono" role="img" aria-label="R &amp; J"></div>
+    <p class="lg-names">Romina &amp; John</p>
+    <div class="lg-rule"></div>
+    <p class="lg-ask">Elige tu idioma<span>Choose your language</span></p>
+    <div class="lg-btns">
+      <button type="button" class="lg-btn" data-lang="es">Español</button>
+      <button type="button" class="lg-btn" data-lang="en">English</button>
+    </div>
+  </div>
+</div>
+
 <!-- ENVELOPE SCREEN -->
 <div id="envelope-screen" role="button" aria-label="Toca para abrir tu invitación">
   <img id="env-image" src="sobre.png" alt="Sobre invitación Romina &amp; John" />
@@ -1163,6 +1357,7 @@ section>*{position:relative;z-index:1}
       <span class="h-div-dot">✦ · ✦</span>
     </div>
 
+    <div class="mono-rj mono-hero" role="img" aria-label="R &amp; J"></div>
     <div class="h-clip"><span class="h-name" id="hN1">Romina</span></div>
     <div class="h-amp-clip"><span class="h-amp" id="hAmp">&amp;</span></div>
     <div class="h-clip"><span class="h-name" id="hN2">John</span></div>
@@ -1394,68 +1589,6 @@ section>*{position:relative;z-index:1}
     <p class="gbx-tap">Toca el regalo</p>
   </div>
 
-  <div class="gf-card gf-bank" id="giftBoxContent" hidden>
-    <div class="gf-card-top">
-      <div class="gf-logo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-6 9 6M5 10v9h14v-9M8 14v3M12 14v3M16 14v3M3 19h18"/></svg></div>
-      <p class="gf-ttl">Transferencia</p>
-    </div>
-    <div class="gf-bank-info">
-      <div class="gf-addr">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-        <p class="gf-addr-note">Agradecemos muchísimo tu presencia. Si deseas enviarnos un regalo o un sobre, puedes hacerlo a esta dirección:</p>
-        <p class="gf-addr-val" id="giftAddr" data-text>486 Centerpointe Circle #362<br>Altamonte Springs, FL 32701</p>
-        <button class="btn gf-copy" onclick="copyCuenta('giftAddr')" type="button">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
-          Copiar dirección
-        </button>
-      </div>
-
-      <p class="gf-bank-ttl">Wells Fargo <span>&#127482;&#127480; USD</span></p>
-      <p class="gf-bk-line"><span class="gf-bk-lbl">Número de cuenta</span></p>
-      <p class="gf-bk-line gf-bk-clabe-wrap">
-        <span class="gf-bk-clabe" id="wfCuenta">8178599810</span>
-      </p>
-      <button class="btn gf-copy" onclick="copyCuenta('wfCuenta')" type="button">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
-        Copiar
-      </button>
-      <p class="gf-bk-line"><span class="gf-bk-lbl">Número de ruta (routing)</span></p>
-      <p class="gf-bk-line gf-bk-clabe-wrap">
-        <span class="gf-bk-clabe" id="wfRuta">063107513</span>
-      </p>
-      <button class="btn gf-copy" onclick="copyCuenta('wfRuta')" type="button">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
-        Copiar
-      </button>
-      <p class="gf-bk-line"><span class="gf-bk-lbl">Zelle</span></p>
-      <p class="gf-bk-line gf-bk-clabe-wrap">
-        <span class="gf-bk-clabe" id="wfZelle">7864821109</span>
-      </p>
-      <button class="btn gf-copy" onclick="copyCuenta('wfZelle')" type="button">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
-        Copiar
-      </button>
-
-      <p class="gf-bank-ttl" style="margin-top:26px">Interbank <span>&#127477;&#127466; USD</span></p>
-      <p class="gf-bk-line"><span class="gf-bk-lbl">Número de cuenta</span></p>
-      <p class="gf-bk-line gf-bk-clabe-wrap">
-        <span class="gf-bk-clabe" id="ibCuenta">4153316705885</span>
-      </p>
-      <button class="btn gf-copy" onclick="copyCuenta('ibCuenta')" type="button">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
-        Copiar
-      </button>
-      <p class="gf-bk-line"><span class="gf-bk-lbl">Cuenta interbancaria (CCI)</span></p>
-      <p class="gf-bk-line gf-bk-clabe-wrap">
-        <span class="gf-bk-clabe" id="ibCci">00341501331670588577</span>
-      </p>
-      <button class="btn gf-copy" onclick="copyCuenta('ibCci')" type="button">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
-        Copiar
-      </button>
-    </div>
-  </div>
-
   <div style="margin:28px auto 0;display:flex;flex-direction:column;align-items:center;gap:0">
     <button class="env-interactive" aria-label="Sobre — toca para abrir" aria-expanded="false" type="button">
       <div class="env-body">
@@ -1682,17 +1815,7 @@ section>*{position:relative;z-index:1}
       pertenecimos — juntos en nuestro para siempre.
     </p>
 
-    <div class="story-sep" aria-hidden="true"><span>&#10022;</span></div>
 
-    <p class="story-en" lang="en">
-      Some love stories begin with magic — ours began at Disney, where our dates turned
-      into memories we still hold close. For almost three years we have lived between
-      suitcases and airports, with John crossing to Peru many times just to hold us
-      together, between hellos and goodbyes that only made our love stronger. A year and
-      a half of distance taught us that love is not about the miles, but about choosing
-      each other every single day. Today, after all the miles that brought us here, we
-      are ready to begin where we always belonged — together in our forever.
-    </p>
   </div>
 </section>
 
@@ -1756,6 +1879,7 @@ section>*{position:relative;z-index:1}
 <!-- 13. FOOTER -->
 <footer id="footer">
   <div class="ft-orn">✦ · ✦ · ✦</div>
+  <div class="mono-rj mono-foot" role="img" aria-label="R &amp; J"></div>
   <div class="ft-nms">Romina &amp; John</div>
   <div class="gline" style="margin-top:22px"></div>
   <p class="ft-dt">07 · Noviembre · 2026</p>
@@ -1769,6 +1893,81 @@ section>*{position:relative;z-index:1}
 </footer>
 </div>
 
+<!-- MODAL · MESA DE REGALOS -->
+<div class="gm-back" id="giftModal" hidden>
+  <div class="gm-card" role="dialog" aria-modal="true" aria-label="Datos para tu regalo">
+    <button class="gm-x" id="giftClose" type="button" aria-label="Cerrar">&times;</button>
+
+    <p class="gm-eyebrow">Con todo nuestro cariño</p>
+    <h3 class="gm-ttl">Nuestra Mesa de Regalos</h3>
+    <div class="gm-rule"></div>
+
+    <div class="gm-tabs" role="tablist">
+      <button class="gm-tab is-on" type="button" data-i="0" role="tab">Dirección</button>
+      <button class="gm-tab" type="button" data-i="1" role="tab">Wells Fargo</button>
+      <button class="gm-tab" type="button" data-i="2" role="tab">Interbank</button>
+    </div>
+
+    <div class="gm-viewport">
+      <div class="gm-track" id="gmTrack">
+
+        <div class="gm-slide" role="tabpanel">
+          <div class="gm-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <p class="gm-note">Agradecemos muchísimo tu presencia. Si deseas enviarnos un regalo o un sobre, puedes hacerlo a esta dirección:</p>
+          <p class="gm-addr" id="giftAddr" data-text>486 Centerpointe Circle #362<br>Altamonte Springs, FL 32701</p>
+          <button class="gm-btn" type="button" onclick="copyCuenta('giftAddr')">Copiar dirección</button>
+        </div>
+
+        <div class="gm-slide" role="tabpanel">
+          <div class="gm-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9l9-6 9 6M5 10v9h14v-9M8 14v3M12 14v3M16 14v3M3 19h18"/></svg>
+          </div>
+          <p class="gm-bank">Wells Fargo <span>&#127482;&#127480; USD</span></p>
+      <div class="gm-row">
+        <span class="gm-lbl">Número de cuenta</span>
+        <span class="gm-val" id="wfCuenta">8178599810</span>
+        <button class="gm-copy" type="button" onclick="copyCuenta('wfCuenta')" aria-label="Copiar"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg></button>
+      </div>
+      <div class="gm-row">
+        <span class="gm-lbl">Número de ruta (routing)</span>
+        <span class="gm-val" id="wfRuta">063107513</span>
+        <button class="gm-copy" type="button" onclick="copyCuenta('wfRuta')" aria-label="Copiar"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg></button>
+      </div>
+      <div class="gm-row">
+        <span class="gm-lbl">Zelle</span>
+        <span class="gm-val" id="wfZelle">7864821109</span>
+        <button class="gm-copy" type="button" onclick="copyCuenta('wfZelle')" aria-label="Copiar"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg></button>
+      </div>
+        </div>
+
+        <div class="gm-slide" role="tabpanel">
+          <div class="gm-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9l9-6 9 6M5 10v9h14v-9M8 14v3M12 14v3M16 14v3M3 19h18"/></svg>
+          </div>
+          <p class="gm-bank">Interbank <span>&#127477;&#127466; USD</span></p>
+      <div class="gm-row">
+        <span class="gm-lbl">Número de cuenta</span>
+        <span class="gm-val" id="ibCuenta">4153316705885</span>
+        <button class="gm-copy" type="button" onclick="copyCuenta('ibCuenta')" aria-label="Copiar"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg></button>
+      </div>
+      <div class="gm-row">
+        <span class="gm-lbl">Cuenta interbancaria (CCI)</span>
+        <span class="gm-val" id="ibCci">00341501331670588577</span>
+        <button class="gm-copy" type="button" onclick="copyCuenta('ibCci')" aria-label="Copiar"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg></button>
+      </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="gm-dots" id="gmDots" aria-hidden="true">
+      <span class="is-on"></span><span></span><span></span>
+    </div>
+  </div>
+</div>
+
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
@@ -1779,6 +1978,92 @@ document.addEventListener('DOMContentLoaded', () => {
   initRSVP();
   initScratch();
 });
+
+/* ── IDIOMA (ES / EN) ──────────────────────────────── */
+var I18N = {"Nos casamos": "We are getting married", "07 · Noviembre · 2026": "07 · November · 2026", "Desliza": "Scroll", "El gran día llega en": "The big day arrives in", "Cuenta Regresiva": "Countdown", "Días": "Days", "Horas": "Hours", "Minutos": "Minutes", "Segundos": "Seconds", "¿Dónde y cuándo?": "Where &amp; when", "La Celebración": "The Celebration", "Ceremonia &amp; Recepción": "Ceremony &amp; Reception", "Ceremonia": "Ceremony", "Recepción": "Reception", "Ver en GPS / Google Maps": "Open in GPS / Google Maps", "Te esperamos puntualmente a las 4:00 PM<br>para no perdernos ni un instante juntos.": "Please join us promptly at 4:00 PM<br>so we do not miss a single moment together.", "Juntos por siempre": "Together forever", "No lo olvides": "Do not forget", "Guarda la Fecha": "Save the Date", "Agrega nuestra boda a tu calendario<br>para no perderte ni un momento.": "Add our wedding to your calendar<br>so you do not miss a moment.", "Noviembre": "November", "Dom": "Sun", "Lun": "Mon", "Mar": "Tue", "Mié": "Wed", "Jue": "Thu", "Vie": "Fri", "Sáb": "Sat", "Sábado · El gran día": "Saturday · The big day", "Agregar a Google Calendar": "Add to Google Calendar", "El Gran Día": "The Big Day", "Itinerario": "Itinerary", "Ceremonia Religiosa": "Religious Ceremony", "Te pedimos puntualidad": "Please be on time", "Hora del Cóctel": "Cocktail Hour", "Inicia la Recepción": "Reception Begins", "Cierre del Evento": "Event Ends", "¡Hasta que el cuerpo aguante!": "Until the last dance!", "Con todo nuestro cariño": "With all our love", "Solo Adultos": "Adults Only", "Queremos que vivas esta noche<br>sin preocupaciones. Con mucho cariño,<br>te pedimos dejar a los pequeños en casa.": "We want you to enjoy this night<br>without a care. With much love,<br>we kindly ask you to leave the little ones at home.", "Una velada de adultos · Gracias por comprender": "An adults-only evening · Thank you for understanding", "Tu presencia es nuestro mejor regalo": "Your presence is our greatest gift", "Mesa de Regalos": "Gift Registry", "Si deseas obsequiarnos algo especial,<br>compartimos contigo nuestras opciones.": "If you would like to give us something special,<br>here are our options.", "Toca el regalo": "Tap the gift", "Transferencia": "Bank Transfer", "Agradecemos muchísimo tu presencia. Si deseas enviarnos un regalo o un sobre, puedes hacerlo a esta dirección:": "We are so grateful for your presence. If you would like to send a gift or a card, you can do so at this address:", "Copiar dirección": "Copy address", "Número de cuenta": "Account number", "Copiar": "Copy", "Número de ruta (routing)": "Routing number", "Cuenta interbancaria (CCI)": "Interbank account (CCI)", "Lluvia de Sobres": "Envelope Shower", "El día de la boda habrá un buzón especial<br>donde podrás depositar tu sobre con cariño.": "On the wedding day there will be a special box<br>where you can leave your envelope with love.", "Toca el sobre": "Tap the envelope", "Captura cada momento": "Capture every moment", "Álbum Compartido": "Shared Album", "Escanea el código QR y sube las fotos<br>que tomes durante el evento.": "Scan the QR code and upload the photos<br>you take during the event.", "Escanea con la cámara": "Scan with your camera", "Abrir álbum": "Open album", "Compartirás tus fotos con los demás invitados.<br>Podrás ver el álbum completo después del evento.": "You will share your photos with the other guests.<br>You can see the full album after the event.", "Vestimenta": "Attire", "Código de Vestimenta": "Dress Code", "Queremos una noche elegante, mágica y llena de brillo.<br>Vestimenta formal rigurosa: vestido largo para ellas,<br>traje oscuro con corbata para ellos.": "We want an elegant night, magical and full of sparkle.<br>Strictly formal attire: floor-length gowns for her,<br>dark suit and tie for him.", "Rasca para descubrir": "Scratch to reveal", "Mostrar la imagen completa": "Show the full image", "Verla en grande": "View it larger", "Nuestro toque especial — toca para abrir": "Our special touch — tap to open", "Nos encantaría ver un destello dorado en tu look — en el vestido, los accesorios, la corbata o el pañuelo — a juego con nuestra celebración fucsia, dorada y blanca. ✨": "We would love to see a golden touch in your look — on your dress, accessories, tie or pocket square — to match our fuchsia, gold and white celebration. ✨", "Colores sugeridos": "Suggested colors", "Negro": "Black", "Fucsia": "Fuchsia", "Rosa": "Pink", "Por favor evitar": "Please avoid", "Blanco / Ivory": "White / Ivory", "Rojo intenso": "Bright red", "Queremos que brilles — pero que el fucsia y el dorado<br>sean los protagonistas de la noche.": "We want you to shine — but let fuchsia and gold<br>be the stars of the night.", "Toma precauciones": "Plan ahead", "prepárate para la ocasión": "be ready for the occasion", "Prob. de lluvia": "Chance of rain", "Día": "Day", "Noche": "Night", "Noviembre en Orlando es cálido de día y templado al caer la noche": "November in Orlando is warm by day and mild as night falls", "Consulta el pronóstico actualizado": "Check the updated forecast", "Con amor de": "With love from", "Nuestros Padres": "Our Parents", "Padres del Novio": "Groom&#39;s Parents", "Padres de la Novia": "Bride&#39;s Parents", "Por confirmar": "To be confirmed", "Nosotros": "About us", "Nuestra Historia": "Our Story", "Cada imagen, un capítulo de nuestra historia de amor.": "Each image, a chapter of our love story.", "Arrastra para girar": "Drag to spin", "Confirmación": "RSVP", "¿Nos acompañas?": "Will you join us?", "¡Ahí estaré!": "I will be there!", "No podré asistir": "I cannot make it", "Confirmar asistencia": "Confirm attendance", "Fecha límite · 4 Oct 2026": "Deadline · Oct 4, 2026", "Orlando · Florida · Estados Unidos": "Orlando · Florida · United States", "Con amor, los novios": "With love, the bride &amp; groom", "Diseño por @elysium.invitaciones": "Designed by @elysium.invitaciones", "Toca para abrir": "Tap to open", "El clima <em style=\"font-style:italic;color:var(--gold-dk)\">esa</em> semana": "The weather <em style=\"font-style:italic;color:var(--gold-dk)\">that</em> week", "La boda se celebra en noviembre, una de las épocas más agradables de Florida. Las tardes son cálidas y <strong>las noches templadas</strong>. Un chal ligero será más que suficiente para estar cómoda toda la velada.": "The wedding takes place in November, one of the loveliest times of year in Florida. Afternoons are warm and <strong>the evenings mild</strong>. A light wrap will be more than enough to stay comfortable all night.", "Confirma tu asistencia antes del <strong style=\"color:var(--gold)\">4 de Octubre de 2026</strong>. Nos encantará saber que estarás con nosotros.": "Please confirm your attendance before <strong style=\"color:var(--gold)\">October 4, 2026</strong>. We would love to know you will be with us.", "Algunas historias de amor comienzan con magia — la nuestra comenzó en Disney, donde nuestras citas se convirtieron en recuerdos que aún guardamos en el corazón. Durante casi tres años hemos vivido entre maletas y aeropuertos, con John cruzando hasta Perú una y otra vez solo para mantenernos juntos, entre holas y adioses que solo hicieron nuestro amor más fuerte. Un año y medio a distancia nos enseñó que el amor no se mide en millas, sino en elegirnos cada día. Hoy, después de todas esas millas que nos trajeron hasta aquí, estamos listos para comenzar donde siempre pertenecimos — juntos en nuestro para siempre.": "Some love stories begin with magic — ours began at Disney, where our dates turned into memories we still hold close. For almost three years we have lived between suitcases and airports, with John crossing to Peru many times just to hold us together, between hellos and goodbyes that only made our love stronger. A year and a half of distance taught us that love is not about the miles, but about choosing each other every single day. Today, after all the miles that brought us here, we are ready to begin where we always belonged — together in our forever.", "Nuestro toque especial": "Our special touch", "Orlando · Florida · Estados Unidos<br>Con amor, los novios": "Orlando · Florida · United States<br>With love, the bride &amp; groom", "Nuestra Mesa de Regalos": "Our Gift Registry", "Dirección": "Address"};
+
+/* textos que genera el JS en caliente */
+var I18N_JS = {
+  "Número copiado":"Number copied",
+  "Dirección copiada":"Address copied",
+  "No se pudo copiar":"Could not copy",
+  "Imagen descubierta ✦":"Image revealed ✦",
+  "Actualizar respuesta":"Update response",
+  "Enviando…":"Sending…",
+  "Fecha límite alcanzada":"Deadline reached",
+  "La fecha para confirmar asistencia ha pasado.":"The deadline to confirm attendance has passed.",
+  "Por favor selecciona si asistirás o no.":"Please select whether you will attend.",
+  "Por favor escribe al menos un nombre.":"Please enter at least one name.",
+  "¡Tu asistencia ha sido confirmada! Nos vemos pronto. ✦":"Your attendance is confirmed! See you soon. ✦",
+  "Hemos registrado que no podrás asistir. ¡Gracias por avisarnos!":"We have noted that you cannot attend. Thank you for letting us know!",
+  "Error de conexión. Intenta de nuevo.":"Connection error. Please try again.",
+  "¡Ya tienes confirmada tu asistencia! Puedes actualizar tu respuesta.":"Your attendance is already confirmed! You can update your response.",
+  "Ya tienes registrado que no podrás asistir. Puedes cambiar tu respuesta.":"We have you down as unable to attend. You can change your response.",
+  "Tu nombre completo":"Your full name",
+  "Invitado":"Guest",
+  "¡Hola,":"Hello,",
+  "Tienes":"You have",
+  "pase":"pass","pases":"passes",
+  "asignado":"assigned","asignados":"assigned"
+};
+var LANG = 'es';
+function t(txt){ return (LANG === 'en' && I18N_JS[txt]) ? I18N_JS[txt] : txt; }
+
+var I18N_SEL = 'p,span,h2,h3,div,a,button,em,strong,td,li';
+function norm(x){
+  /* los espacios y saltos alrededor de <br> varían según la sangría del
+     HTML; se normalizan para que las claves no dependan del formato */
+  return x.replace(/\s*<br\s*\/?>\s*/gi, '<br>').replace(/\s+/g, ' ').trim();
+}
+
+function applyLang(lang){
+  LANG = lang;
+  document.documentElement.lang = lang;
+
+  /* candidatos: elementos cuyo contenido original está en el diccionario */
+  var todos = document.querySelectorAll(I18N_SEL);
+  var hits = [];
+  for (var i = 0; i < todos.length; i++){
+    var el = todos[i];
+    var base = el.hasAttribute('data-es') ? el.getAttribute('data-es') : norm(el.innerHTML);
+    if (I18N[base] !== undefined) hits.push(el);
+  }
+  /* si un elemento contiene a otro que también traduce, se queda el más interno
+     salvo que el padre tenga su propia entrada compuesta: en ese caso el hijo
+     no está en el diccionario y no aparece aquí, así que no hay conflicto */
+  var finales = hits.filter(function(el){
+    return !hits.some(function(otro){ return otro !== el && el.contains(otro); });
+  });
+
+  finales.forEach(function(el){
+    if (!el.hasAttribute('data-es')) el.setAttribute('data-es', norm(el.innerHTML));
+    var es = el.getAttribute('data-es');
+    el.innerHTML = (lang === 'en' && I18N[es]) ? I18N[es] : es;
+  });
+
+  /* piezas sueltas que no son nodos de texto simples */
+  var hint = document.getElementById('env-hint');
+  if (hint) hint.textContent = (lang === 'en') ? 'Tap to open' : 'Toca para abrir';
+  var mus = document.getElementById('musicBtn');
+  if (mus) mus.setAttribute('aria-label', lang === 'en' ? 'Music' : 'Música');
+  document.title = (lang === 'en')
+    ? 'Romina & John · 11 · 07 · 2026'
+    : 'Romina & John · 07 · XI · 2026';
+}
+
+/* ── PUERTA DE IDIOMA ──────────────────────────────── */
+(function(){
+  var gate = document.getElementById('lang-gate');
+  if (!gate) return;
+  gate.querySelectorAll('.lg-btn').forEach(function(b){
+    b.addEventListener('click', function(){
+      applyLang(b.getAttribute('data-lang'));
+      gate.classList.add('gone');
+      /* se retira del flujo al terminar el fundido hacia el sobre */
+      setTimeout(function(){ gate.style.display = 'none'; }, 950);
+    });
+  });
+}());
 
 /* ── ENVELOPE ──────────────────────────────────────── */
 (function () {
@@ -2459,48 +2744,45 @@ function initWheel() {
 (function(){
   var box  = document.getElementById('giftBox'),
       btn  = document.getElementById('giftBtn'),
-      conf = document.getElementById('giftConfetti'),
-      cont = document.getElementById('giftBoxContent');
-  if(!box || !btn || !cont) return;
+      conf = document.getElementById('giftConfetti');
+  if(!box || !btn) return;
+  var primeraVez = true;
 
   function abrir(){
-    if(box.classList.contains('opened')) return;
+    btn.classList.remove('shake');
+    void btn.offsetWidth;          /* reinicia la animación al reabrir */
     btn.classList.add('shake');
     btn.setAttribute('aria-expanded','true');
 
-    setTimeout(function(){
-      box.classList.add('opened');
-
-      /* confeti en la paleta de la invitación: fucsia, dorado y blanco */
-      var colores = ['#EE719E','#FECB3E','#FFFFFF','#F4A4C0','#D9548C','#FEE4A8'];
-      var quieto = matchMedia('(prefers-reduced-motion: reduce)').matches;
-      if(!quieto && window.gsap){
-        for(var i=0;i<34;i++){
-          var p=document.createElement('div');
-          p.className='gbx-confetti-piece';
-          p.style.background=colores[i%colores.length];
-          var sz=5+Math.random()*7;
-          p.style.width=sz+'px';p.style.height=sz+'px';
-          p.style.borderRadius=Math.random()>.5?'50%':'2px';
-          conf.appendChild(p);
-          var ang=Math.random()*Math.PI*2, d=55+Math.random()*105;
-          gsap.fromTo(p,{opacity:1,x:0,y:0,scale:1,rotation:0},
-            {x:Math.cos(ang)*d, y:Math.sin(ang)*d-46, opacity:0, scale:.2,
-             rotation:Math.random()*720-360, duration:.9+Math.random()*.5,
-             ease:'power2.out', delay:Math.random()*.12,
-             onComplete:function(){var t=this.targets()[0];if(t&&t.remove)t.remove()}});
+    /* el confeti solo la primera vez: en las siguientes se abre directo */
+    var espera = primeraVez ? 480 : 180;
+    if(primeraVez){
+      primeraVez = false;
+      setTimeout(function(){
+        box.classList.add('opened');
+        var colores = ['#EE719E','#FECB3E','#FFFFFF','#F4A4C0','#D9548C','#FEE4A8'];
+        var quieto = matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if(!quieto && window.gsap && conf){
+          for(var i=0;i<34;i++){
+            var p=document.createElement('div');
+            p.className='gbx-confetti-piece';
+            p.style.background=colores[i%colores.length];
+            var sz=5+Math.random()*7;
+            p.style.width=sz+'px';p.style.height=sz+'px';
+            p.style.borderRadius=Math.random()>.5?'50%':'2px';
+            conf.appendChild(p);
+            var ang=Math.random()*Math.PI*2, d=55+Math.random()*105;
+            gsap.fromTo(p,{opacity:1,x:0,y:0,scale:1,rotation:0},
+              {x:Math.cos(ang)*d, y:Math.sin(ang)*d-46, opacity:0, scale:.2,
+               rotation:Math.random()*720-360, duration:.9+Math.random()*.5,
+               ease:'power2.out', delay:Math.random()*.12,
+               onComplete:function(){var t=this.targets()[0];if(t&&t.remove)t.remove()}});
+          }
         }
-      }
+      }, 120);
+    }
 
-      cont.hidden=false;
-      if(window.gsap){
-        gsap.fromTo(cont,{opacity:0,y:22},
-          {opacity:1,y:0,duration:.7,ease:'power2.out',delay:.15});
-      }
-      if(window.ScrollTrigger) ScrollTrigger.refresh();
-    },480);
-
-    setTimeout(function(){btn.style.display='none'},1200);
+    setTimeout(function(){ if(window.abrirRegalo) window.abrirRegalo(); }, espera);
   }
 
   btn.addEventListener('click', abrir);
@@ -2633,6 +2915,59 @@ function initScratch() {
   /* alternativa accesible: revelar sin tener que rascar */
   if (btn) btn.addEventListener('click', reveal);
 }
+
+
+/* ── MODAL MESA DE REGALOS ─────────────────────────── */
+(function(){
+  var back  = document.getElementById('giftModal');
+  var card  = back ? back.querySelector('.gm-card') : null;
+  var cerrar= document.getElementById('giftClose');
+  var track = document.getElementById('gmTrack');
+  var tabs  = back ? back.querySelectorAll('.gm-tab') : [];
+  var dots  = back ? document.querySelectorAll('#gmDots span') : [];
+  if (!back || !track) return;
+  var idx = 0, n = tabs.length;
+
+  function ir(i){
+    idx = Math.max(0, Math.min(n - 1, i));
+    track.style.transform = 'translateX(' + (-idx * 100) + '%)';
+    for (var k = 0; k < n; k++){
+      tabs[k].classList.toggle('is-on', k === idx);
+      if (dots[k]) dots[k].classList.toggle('is-on', k === idx);
+    }
+  }
+  tabs.forEach(function(b){ b.addEventListener('click', function(){ ir(+b.getAttribute('data-i')); }); });
+
+  /* deslizar entre opciones con el dedo */
+  var x0 = null;
+  track.addEventListener('touchstart', function(e){ x0 = e.touches[0].clientX; }, { passive: true });
+  track.addEventListener('touchend', function(e){
+    if (x0 === null) return;
+    var dx = e.changedTouches[0].clientX - x0;
+    if (Math.abs(dx) > 45) ir(idx + (dx < 0 ? 1 : -1));
+    x0 = null;
+  }, { passive: true });
+
+  window.abrirRegalo = function(){
+    back.hidden = false;
+    /* setTimeout en vez de rAF: en pestañas en segundo plano rAF puede no
+       dispararse y el modal se quedaría a opacidad 0 */
+    setTimeout(function(){ back.classList.add('on'); }, 16);
+    document.body.style.overflow = 'hidden';
+    if (cerrar) cerrar.focus();
+  };
+  function cerrarModal(){
+    back.classList.remove('on');
+    document.body.style.overflow = '';
+    /* se oculta al terminar el fundido para que la caja pueda reabrirlo */
+    setTimeout(function(){ back.hidden = true; }, 420);
+  }
+  if (cerrar) cerrar.addEventListener('click', cerrarModal);
+  back.addEventListener('click', function(e){ if (e.target === back) cerrarModal(); });
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'Escape' && !back.hidden) cerrarModal();
+  });
+}());
 
 /* ── COPY CLABE ────────────────────────────────────── */
 function copyCuenta(id) {
