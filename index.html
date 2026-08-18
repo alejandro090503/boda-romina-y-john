@@ -410,8 +410,8 @@ section>*{position:relative;z-index:1}
   filter:drop-shadow(0 3px 16px rgba(0,0,0,.6));
 }
 .mono-foot{
-  width:min(210px,54vw);aspect-ratio:900/507;
-  margin-bottom:6px;
+  width:min(320px,80vw);aspect-ratio:900/507;
+  margin-bottom:10px;
 }
 @media(prefers-reduced-motion:reduce){
   .mono-rj,.lg-mono{animation:none}
@@ -1884,7 +1884,6 @@ section>*{position:relative;z-index:1}
 <footer id="footer">
   <div class="ft-orn">✦ · ✦ · ✦</div>
   <div class="mono-rj mono-foot" role="img" aria-label="R &amp; J"></div>
-  <div class="ft-nms">Romina &amp; John</div>
   <div class="gline" style="margin-top:22px"></div>
   <p class="ft-dt">07 · Noviembre · 2026</p>
   <p class="ft-note">Orlando · Florida · Estados Unidos<br>Con amor, los novios</p>
@@ -2674,13 +2673,15 @@ function initWheel() {
     if (im) { im.src = im.getAttribute('data-src'); im.removeAttribute('data-src'); }
   });
 
-  /* radio derivado del ancho real de la tarjeta: con n tarjetas repartidas
-     en el círculo, la cuerda entre vecinas es 2·R·sen(π/n); el factor 1.12
-     deja una separación visible sin que se toquen en ningún tamaño */
+  /* Las tarjetas son planos tangentes al círculo, o sea los lados de un
+     polígono regular de n lados cuya apotema es el radio. El lado de ese
+     polígono mide 2·R·tan(π/n), así que para que los bordes se toquen justo
+     borde con borde el radio debe ser ancho / (2·tan(π/n)).
+     (Con sen(π/n) se obtendría la cuerda entre centros, que deja hueco.) */
   var radius;
   function layout() {
     var cw = cards[0].offsetWidth || 200;
-    radius = (cw / (2 * Math.sin(Math.PI / n))) * 1.12;
+    radius = cw / (2 * Math.tan(Math.PI / n));
     cards.forEach(function (card, i) {
       card.style.transform = 'rotateY(' + (360 / n * i) + 'deg) translateZ(' + radius + 'px)';
     });
