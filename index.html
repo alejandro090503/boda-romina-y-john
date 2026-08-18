@@ -858,20 +858,8 @@ section>*{position:relative;z-index:1}
   font-size:clamp(16px,4.2vw,18px);line-height:1.9;
   color:var(--ink-deep);font-weight:500;text-align:center;
 }
-.story-en{
-  font-family:'Cormorant Garamond',serif;font-style:italic;
-  font-size:clamp(14px,3.7vw,16px);line-height:1.85;
-  color:var(--ink-deep);opacity:.72;font-weight:500;text-align:center;
-}
-.story-sep{
-  display:flex;align-items:center;justify-content:center;gap:14px;
-  margin:clamp(20px,5vw,26px) auto;max-width:260px;
-}
-.story-sep::before,.story-sep::after{
-  content:'';flex:1;height:1px;
-  background:linear-gradient(to right,transparent,rgba(184,145,47,.5),transparent);
-}
-.story-sep span{color:var(--gold-dk);font-size:11px;opacity:.85;flex-shrink:0}
+
+
 
 /* ── RSVP ──────────────────────────────── */
 #rsvp{
@@ -2428,7 +2416,7 @@ function scrollAnims() {
   });
 
 
-  gsap.from(['.gal-quote','.story-es','.story-sep','.story-en'], {
+  gsap.from(['.gal-quote','.story-es'], {
     opacity: 0, y: 20, duration: .7, stagger: .12, ease,
     scrollTrigger: { trigger: '#gallery', start: 'top 70%', once: true }
   });
