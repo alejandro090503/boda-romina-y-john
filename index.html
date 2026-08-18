@@ -216,6 +216,21 @@ section>*{position:relative;z-index:1}
 }
 .btn-gold:active{background:linear-gradient(135deg,var(--gold-lt),#D9548C);transform:scale(.96)}
 
+/* barrido de brillo dorado sobre el botón de calendario */
+#calBtn{position:relative;overflow:hidden;isolation:isolate}
+#calBtn::after{
+  content:'';position:absolute;top:0;left:-45%;width:36%;height:100%;
+  background:linear-gradient(100deg,transparent 0%,rgba(255,255,255,.75) 48%,rgba(254,203,62,.55) 62%,transparent 100%);
+  transform:skewX(-20deg);pointer-events:none;z-index:1;
+  animation:btnShine 4.5s ease-in-out infinite;
+}
+@keyframes btnShine{
+  0%{left:-45%}
+  45%{left:125%}
+  100%{left:125%}
+}
+@media(prefers-reduced-motion:reduce){#calBtn::after{animation:none;display:none}}
+
 /* ── SECTION DIVIDERS ──────────────────── */
 .sec-divider{
   width:100%;height:clamp(40px,10vw,60px);position:relative;overflow:hidden;
@@ -226,8 +241,8 @@ section>*{position:relative;z-index:1}
 /* ── HERO ──────────────────────────────── */
 #hero{
   min-height:100svh;display:flex;flex-direction:column;
-  align-items:center;justify-content:center;
-  position:relative;overflow:hidden;padding:48px 28px 88px;
+  align-items:center;justify-content:flex-end;
+  position:relative;overflow:hidden;padding:48px 28px 108px;
 }
 #hero::before{display:none}
 .h-bg{
@@ -236,7 +251,7 @@ section>*{position:relative;z-index:1}
 }
 .h-bg img{
   width:100%;height:100%;object-fit:cover;object-position:center 35%;
-  filter:brightness(.45) saturate(1.15) contrast(1.05);
+  filter:brightness(.72) saturate(1.12) contrast(1.03);
   display:block;
 }
 .h-ov{
@@ -244,10 +259,11 @@ section>*{position:relative;z-index:1}
   background:
     radial-gradient(ellipse at 50% 30%, rgba(255,250,240,.3) 0%, transparent 60%),
     linear-gradient(to bottom,
-      rgba(0,0,0,.6) 0%,
-      rgba(0,0,0,.12) 30%,
-      rgba(0,0,0,.12) 55%,
-      rgba(0,0,0,.78) 100%);
+      rgba(0,0,0,.42) 0%,
+      rgba(0,0,0,.06) 26%,
+      rgba(0,0,0,.10) 48%,
+      rgba(0,0,0,.55) 72%,
+      rgba(0,0,0,.88) 100%);
 }
 .h-frame{
   position:absolute;top:22px;left:22px;right:22px;bottom:22px;
@@ -390,11 +406,11 @@ section>*{position:relative;z-index:1}
   margin:0 auto;
 }
 .mono-hero{
-  width:min(240px,62vw);aspect-ratio:900/627;
-  filter:drop-shadow(0 2px 12px rgba(0,0,0,.45));
+  width:min(272px,70vw);aspect-ratio:900/507;
+  filter:drop-shadow(0 3px 16px rgba(0,0,0,.6));
 }
 .mono-foot{
-  width:min(200px,52vw);aspect-ratio:900/627;
+  width:min(210px,54vw);aspect-ratio:900/507;
   margin-bottom:6px;
 }
 @media(prefers-reduced-motion:reduce){
@@ -1095,7 +1111,7 @@ section>*{position:relative;z-index:1}
   0%,100%{transform:rotate(0)}15%{transform:rotate(-5deg)}30%{transform:rotate(4deg)}
   45%{transform:rotate(-3deg)}60%{transform:rotate(2deg)}75%{transform:rotate(-1deg)}
 }
-.gbx.opened .gbx-present{animation:gbxTopple .7s cubic-bezier(.6,-.2,.7,1) forwards}
+.gbx.opened .gbx-present{animation:none}
 @keyframes gbxTopple{
   0%{transform:scale(1);opacity:1}40%{transform:scale(1.06)}
   100%{transform:scale(.86) translateY(-12px);opacity:0}
@@ -1349,16 +1365,12 @@ section>*{position:relative;z-index:1}
       <span class="h-div-dot">✦ · ✦</span>
     </div>
 
-    <div class="mono-rj mono-hero" role="img" aria-label="R &amp; J"></div>
-    <div class="h-clip"><span class="h-name" id="hN1">Romina</span></div>
-    <div class="h-amp-clip"><span class="h-amp" id="hAmp">&amp;</span></div>
-    <div class="h-clip"><span class="h-name" id="hN2">John</span></div>
+    <div class="mono-rj mono-hero" id="hMono" role="img" aria-label="R &amp; J"></div>
 
-    <div class="gline" style="margin-top:28px" id="hLine"></div>
+    <div class="gline" style="margin-top:20px" id="hLine"></div>
 
     <div class="h-date-wrap" id="hDate">
       <p class="h-date">07 · Noviembre · 2026</p>
-      <p class="h-city">Orlando · Florida</p>
     </div>
   </div>
 
@@ -2151,18 +2163,16 @@ window.addEventListener('scroll', () => {
 /* ── HERO ANIMATIONS ───────────────────────────────── */
 function heroAnim() {
   gsap.set(['#hWe','#hDiv','#hLine','#hDate','#hScroll'], { opacity: 0 });
-  gsap.set(['#hN1','#hN2','#hAmp'], { yPercent: 110 });
+  gsap.set('#hMono', { opacity: 0, y: 26, scale: .94 });
 
   const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
   tl
     .to('#hWe',    { opacity: 1, duration: .8 }, .15)
     .to('#hDiv',   { opacity: 1, duration: .6 }, .35)
-    .to('#hN1',    { yPercent: 0, duration: 1.1 }, .5)
-    .to('#hAmp',   { yPercent: 0, duration: .9 }, .75)
-    .to('#hN2',    { yPercent: 0, duration: 1.1 }, .9)
-    .to('#hLine',  { opacity: .7, duration: .7 }, 1.2)
-    .to('#hDate',  { opacity: 1, duration: .8 }, 1.35)
-    .to('#hScroll',{ opacity: 1, duration: .6 }, 1.8);
+    .to('#hMono',  { opacity: 1, y: 0, scale: 1, duration: 1.3, ease: 'power2.out' }, .55)
+    .to('#hLine',  { opacity: .7, duration: .7 }, 1.3)
+    .to('#hDate',  { opacity: 1, duration: .8 }, 1.45)
+    .to('#hScroll',{ opacity: 1, duration: .6 }, 1.9);
 
   gsap.to('#heroBg', {
     yPercent: 22, ease: 'none',
