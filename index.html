@@ -249,11 +249,11 @@ section>*{position:relative;z-index:1}
 }
 #hero::before{display:none}
 .h-bg{
-  position:absolute;top:-20%;left:0;right:0;bottom:-20%;
+  position:absolute;top:-4%;left:0;right:0;bottom:-4%;
   z-index:0;will-change:transform;
 }
 .h-bg img{
-  width:100%;height:100%;object-fit:cover;object-position:center 35%;
+  width:100%;height:100%;object-fit:cover;object-position:center 32%;
   filter:brightness(.72) saturate(1.12) contrast(1.03);
   display:block;
 }
@@ -344,14 +344,211 @@ section>*{position:relative;z-index:1}
     linear-gradient(to top,var(--ink) 0%,rgba(247,241,230,.6) 10%,transparent 26%);
 }
 .fv-quote{
-  position:absolute;left:50%;bottom:11%;transform:translateX(-50%);
-  width:100%;text-align:center;
+  position:absolute;left:50%;top:11%;transform:translateX(-50%);
+  width:100%;text-align:center;z-index:2;
   font-family:'Great Vibes',cursive;
   font-size:clamp(34px,10vw,52px);line-height:1.2;
   color:var(--gold-lt);white-space:nowrap;
-  text-shadow:0 2px 14px rgba(0,0,0,.55),0 1px 3px rgba(0,0,0,.4);
+  text-shadow:0 2px 14px rgba(0,0,0,.75),0 1px 4px rgba(0,0,0,.6);
+}
+/* velo suave detrás del texto: garantiza contraste del dorado sobre cualquier foto */
+.fv-quote::before{
+  content:'';position:absolute;left:50%;top:50%;z-index:-1;
+  transform:translate(-50%,-50%);
+  width:116%;height:240%;pointer-events:none;
+  background:radial-gradient(ellipse at center,rgba(22,15,4,.55) 0%,rgba(22,15,4,.34) 45%,transparent 72%);
+  filter:blur(10px);
 }
 
+/* ── AEROPUERTOS · CÓMO LLEGAR ─────────────── */
+.ap-sub{
+  text-align:center;font-family:'Cormorant Garamond',serif;
+  font-size:clamp(14px,3.7vw,16px);line-height:1.75;
+  color:var(--ink);opacity:.72;margin:14px 0 6px;
+}
+.ap-scene{
+  position:relative;width:100%;height:clamp(180px,44vw,230px);
+  margin:clamp(14px,4vw,22px) auto clamp(18px,5vw,26px);
+  overflow:hidden;border-radius:18px;
+  background:linear-gradient(180deg,#FFFDF8 0%,#FDF6E7 46%,#F6E9CF 100%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.7),0 6px 22px rgba(120,90,30,.10);
+  border:1px solid rgba(184,145,47,.20);
+}
+/* nubes suaves */
+.ap-cloud{
+  position:absolute;border-radius:999px;pointer-events:none;
+  background:radial-gradient(ellipse at 50% 50%,rgba(255,255,255,.95),rgba(255,255,255,.55) 60%,transparent 72%);
+  filter:blur(.5px);
+}
+.ap-cloud-1{width:110px;height:34px;top:16%;left:-25%;animation:apCloud 26s linear infinite}
+.ap-cloud-2{width:80px;height:26px;top:38%;left:-25%;animation:apCloud 34s linear infinite 6s;opacity:.8}
+.ap-cloud-3{width:130px;height:40px;top:8%;left:-25%;animation:apCloud 44s linear infinite 14s;opacity:.65}
+@keyframes apCloud{0%{transform:translateX(0)}100%{transform:translateX(560px)}}
+/* avioncitos pequeños */
+.ap-mini{
+  position:absolute;color:rgba(184,145,47,.55);pointer-events:none;
+  filter:drop-shadow(0 1px 3px rgba(120,90,30,.25));
+}
+.ap-mini svg{width:100%;height:100%;display:block;transform:rotate(90deg)}
+.ap-mini-1{width:16px;height:16px;top:22%;left:-12%;animation:apFly 11s linear infinite}
+.ap-mini-2{width:12px;height:12px;top:46%;left:-12%;animation:apFly 15s linear infinite 3.5s;opacity:.8}
+.ap-mini-3{width:10px;height:10px;top:12%;left:-12%;animation:apFly 19s linear infinite 8s;opacity:.65}
+@keyframes apFly{
+  0%{transform:translateX(0) translateY(0)}
+  50%{transform:translateX(320px) translateY(-8px)}
+  100%{transform:translateX(660px) translateY(0)}
+}
+/* avión protagonista */
+.ap-plane{
+  position:absolute;left:6%;top:14%;width:38px;height:38px;
+  color:var(--gold-dk,#8a6216);pointer-events:none;z-index:3;
+  filter:drop-shadow(0 4px 10px rgba(120,90,30,.35));
+}
+.ap-plane svg{width:100%;height:100%;display:block;transform:rotate(90deg)}
+.ap-trail{
+  position:absolute;right:78%;top:50%;width:0;height:2px;border-radius:2px;
+  transform:translateY(-50%);
+  background:linear-gradient(to left,rgba(184,145,47,.55),transparent);
+}
+/* pista */
+.ap-runway{
+  position:absolute;left:8%;right:8%;bottom:16%;height:10px;
+  border-radius:6px;overflow:hidden;
+  background:linear-gradient(180deg,rgba(58,48,32,.20),rgba(58,48,32,.34));
+  opacity:0;
+}
+.ap-runway-line{
+  position:absolute;left:0;right:0;top:50%;height:2px;transform:translateY(-50%);
+  background:repeating-linear-gradient(to right,rgba(255,246,214,.95) 0 16px,transparent 16px 34px);
+}
+.ap-touch{
+  position:absolute;bottom:100%;left:0;width:26px;height:26px;border-radius:50%;
+  transform:translate(-50%,50%) scale(0);opacity:0;
+  background:radial-gradient(circle,rgba(255,246,214,.95),rgba(212,175,55,.35) 55%,transparent 72%);
+}
+/* tarjetas de aeropuerto */
+.ap-cards{display:flex;flex-direction:column;gap:14px;max-width:400px;margin:0 auto}
+.ap-card{
+  position:relative;display:flex;flex-direction:column;align-items:center;text-align:center;
+  gap:3px;text-decoration:none;padding:clamp(20px,5vw,24px) clamp(16px,4.5vw,20px) clamp(16px,4vw,20px);
+  border-radius:16px;
+  background:linear-gradient(165deg,rgba(255,255,255,.9),rgba(253,246,231,.7));
+  border:1px solid rgba(184,145,47,.30);
+  box-shadow:0 6px 22px rgba(120,90,30,.12);
+  transition:transform .3s var(--spring),box-shadow .3s,border-color .3s;
+}
+.ap-card:active{transform:scale(.98)}
+.ap-card-main{
+  border-color:rgba(184,145,47,.55);
+  box-shadow:0 10px 30px rgba(120,90,30,.18),0 0 22px rgba(184,145,47,.14);
+}
+.ap-badge{
+  font-family:'Cormorant Garamond',serif;font-weight:600;
+  font-size:clamp(9.5px,2.5vw,11px);letter-spacing:.24em;text-transform:uppercase;
+  color:#fff;background:linear-gradient(135deg,#B8912F,#D4AF37);
+  padding:4px 12px;border-radius:999px;margin-bottom:8px;
+  box-shadow:0 2px 8px rgba(120,90,30,.28);
+}
+.ap-badge-alt{background:linear-gradient(135deg,#9a8a6a,#b9ab8c)}
+.ap-code{
+  font-family:'Cormorant Garamond',serif;font-weight:600;
+  font-size:clamp(34px,9.5vw,44px);line-height:1;letter-spacing:.14em;
+  color:var(--gold-dk,#8a6216);
+  text-shadow:0 2px 10px rgba(184,145,47,.28);
+}
+.ap-name{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(14px,3.7vw,16px);line-height:1.4;color:var(--ink);margin-top:6px;
+}
+.ap-addr{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(12px,3.1vw,13.5px);line-height:1.6;color:var(--ink);opacity:.62;margin-top:2px;
+}
+.ap-go{
+  display:inline-flex;align-items:center;gap:8px;margin-top:12px;
+  font-family:'Cormorant Garamond',serif;font-weight:600;
+  font-size:clamp(11px,2.9vw,12.5px);letter-spacing:.16em;text-transform:uppercase;
+  color:var(--gold-dk,#8a6216);
+  border-bottom:1px solid rgba(184,145,47,.45);padding-bottom:3px;
+}
+@media(prefers-reduced-motion:reduce){
+  .ap-cloud,.ap-mini{animation:none}
+}
+
+/* ── FOOTER · DESTINATION WEDDING ──────────── */
+.ft-destination{
+  font-family:'Great Vibes',cursive;
+  font-size:clamp(34px,10vw,48px);line-height:1.2;
+  color:var(--gold-lt);margin-top:clamp(20px,5vw,26px);
+  text-shadow:0 2px 18px rgba(184,145,47,.5),0 1px 4px rgba(0,0,0,.35);
+}
+.ft-place{
+  font-family:'Cormorant Garamond',serif;font-weight:600;
+  font-size:clamp(12px,3.1vw,14px);letter-spacing:.24em;text-transform:uppercase;
+  color:var(--cream);opacity:.75;margin-top:10px;
+}
+
+/* ── PUNTUALIDAD (card destacada) ──────────── */
+.punct-card{
+  position:relative;overflow:hidden;
+  max-width:360px;margin:30px auto 0;
+  padding:clamp(22px,5.5vw,28px) clamp(18px,5vw,24px) clamp(20px,5vw,26px);
+  text-align:center;border-radius:16px;
+  background:linear-gradient(165deg,rgba(184,145,47,.20),rgba(184,145,47,.06));
+  border:1.5px solid rgba(184,145,47,.55);
+  box-shadow:0 10px 34px rgba(0,0,0,.30),0 0 26px rgba(184,145,47,.22),inset 0 1px 0 rgba(255,246,214,.28);
+}
+.punct-card::before{
+  content:'';position:absolute;inset:6px;border:1px solid rgba(184,145,47,.26);
+  border-radius:11px;pointer-events:none;
+}
+.punct-sweep{
+  position:absolute;top:-60%;left:-120%;width:55%;height:220%;pointer-events:none;
+  background:linear-gradient(100deg,transparent 0%,rgba(255,255,255,.10) 38%,rgba(255,246,214,.5) 50%,rgba(255,255,255,.10) 62%,transparent 100%);
+  transform:rotate(18deg);animation:cdSweep 5.2s ease-in-out infinite .8s;
+}
+.punct-clock{
+  width:40px;height:40px;margin:0 auto 12px;color:var(--gold-lt);
+  filter:drop-shadow(0 0 8px rgba(212,175,55,.6));
+  animation:punctPulse 2.8s ease-in-out infinite;
+}
+.punct-clock svg{width:100%;height:100%;display:block}
+@keyframes punctPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.09)}}
+.punct-eyebrow{
+  font-family:'Cormorant Garamond',serif;font-weight:600;
+  font-size:clamp(11px,2.9vw,13px);letter-spacing:.34em;text-transform:uppercase;
+  color:var(--gold-lt);opacity:.95;
+}
+.punct-time{
+  font-family:'Great Vibes',cursive;
+  font-size:clamp(44px,13vw,60px);line-height:1.1;margin:2px 0 6px;
+  color:var(--gold-lt);
+  text-shadow:0 2px 16px rgba(184,145,47,.45);
+}
+.punct-text{
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:clamp(14.5px,3.9vw,16.5px);line-height:1.7;color:var(--gold-lt);
+}
+@media(prefers-reduced-motion:reduce){.punct-sweep,.punct-clock{animation:none}}
+
+/* ── MAMÁ EN EL CIELO (memorial) ───────────── */
+.fam-angel{position:relative;display:inline-block;white-space:nowrap}
+.fam-star{
+  width:.62em;height:.62em;margin-left:.22em;vertical-align:.28em;
+  fill:var(--gold-lt);
+  filter:drop-shadow(0 0 5px rgba(212,175,55,.85));
+  animation:famTwinkle 3.4s ease-in-out infinite;
+}
+@keyframes famTwinkle{
+  0%,100%{opacity:.55;transform:scale(.9) rotate(0deg)}
+  50%{opacity:1;transform:scale(1.12) rotate(8deg)}
+}
+.fam-heaven{
+  margin-top:12px;font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:clamp(12.5px,3.2vw,14.5px);line-height:1.6;
+  color:var(--gold-lt);opacity:.9;letter-spacing:.02em;
+}
+@media(prefers-reduced-motion:reduce){.fam-star{animation:none}}
 
 /* ── SELECTOR DE IDIOMA ────────────────────── */
 #lang-gate{
@@ -409,7 +606,7 @@ section>*{position:relative;z-index:1}
   margin:0 auto;
 }
 .mono-hero{
-  width:min(272px,70vw);aspect-ratio:900/507;
+  width:min(190px,46vw);aspect-ratio:900/507;
   filter:drop-shadow(0 3px 16px rgba(0,0,0,.6));
 }
 .mono-foot{
@@ -432,12 +629,30 @@ section>*{position:relative;z-index:1}
 .cd-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(6px,2vw,10px);margin-top:clamp(24px,6vw,34px)}
 .cd-box{
   text-align:center;padding:clamp(14px,4vw,22px) 4px clamp(12px,3.5vw,18px);
-  background:linear-gradient(165deg,rgba(184,145,47,.08),rgba(184,145,47,.02));
-  border:1px solid rgba(184,145,47,.14);border-radius:12px;
+  background:linear-gradient(165deg,rgba(184,145,47,.16),rgba(184,145,47,.05));
+  border:1px solid rgba(184,145,47,.34);border-radius:12px;
   backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
   transition:transform .3s var(--spring);
-  box-shadow:0 4px 16px rgba(0,0,0,.2),inset 0 1px 0 rgba(184,145,47,.08);
+  box-shadow:0 6px 22px rgba(0,0,0,.28),0 0 20px rgba(184,145,47,.14),inset 0 1px 0 rgba(184,145,47,.22);
+  position:relative;overflow:hidden;
 }
+/* barrido de brillo dorado sobre cada card */
+.cd-box::after{
+  content:'';position:absolute;top:-60%;left:-120%;
+  width:60%;height:220%;pointer-events:none;
+  background:linear-gradient(100deg,transparent 0%,rgba(255,255,255,.10) 38%,rgba(255,246,214,.55) 50%,rgba(255,255,255,.10) 62%,transparent 100%);
+  transform:rotate(18deg);
+  animation:cdSweep 4.6s ease-in-out infinite;
+}
+.cd-box:nth-child(2)::after{animation-delay:.5s}
+.cd-box:nth-child(3)::after{animation-delay:1s}
+.cd-box:nth-child(4)::after{animation-delay:1.5s}
+@keyframes cdSweep{
+  0%{left:-120%}
+  55%{left:130%}
+  100%{left:130%}
+}
+@media(prefers-reduced-motion:reduce){.cd-box::after{animation:none;display:none}}
 .cd-box:active{transform:scale(.93)}
 .cd-num{
   font-family:'Cormorant Garamond',serif;
@@ -1333,7 +1548,7 @@ section>*{position:relative;z-index:1}
 </div>
 <div id="env-flash"></div>
 
-<div id="main-content" style="visibility:hidden">
+<div id="main-content" style="opacity:0">
 <div id="prog"></div>
 
 <audio id="bgMusic" loop preload="none">
@@ -1384,6 +1599,42 @@ section>*{position:relative;z-index:1}
 </section>
 
 
+<!-- 1b. BANNER · SEGUNDA FOTO -->
+<section id="magic" aria-label="Romina y John">
+  <div class="fv-media">
+    <img src="hero.jpg" alt="Romina y John" loading="lazy" decoding="async" width="682" height="1024">
+    <div class="fv-fade"></div>
+    <p class="fv-quote fv-quote-top">Donde empieza la magia</p>
+  </div>
+</section>
+
+
+<!-- 1c. CON LA BENDICIÓN DE NUESTROS PADRES -->
+<section id="family">
+  <span class="lbl">Con la bendición de</span>
+  <h2 class="ttl">Nuestros Padres</h2>
+  <div class="gline"></div>
+
+  <p class="fam-ttl">Padres del Novio</p>
+  <div class="fam-card"><p class="fam-nms">Carrie Piatt<br><span class="fam-sep">&amp;</span><br>Blair Patten</p></div>
+
+  <div class="sdiv"></div>
+
+  <p class="fam-ttl">Padres de la Novia</p>
+  <div class="fam-card">
+    <p class="fam-nms">
+      <span class="fam-angel">Ena Vidalon Cuba
+        <svg class="fam-star" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.34 6.02 6.46.33-5.02 4.08 1.7 6.24L12 15.9l-5.48 3.37 1.7-6.24-5.02-4.08 6.46-.33z"/></svg>
+      </span><br>
+      <span class="fam-sep">&amp;</span><br>
+      Kenny Arcadio Taboada Olivares
+    </p>
+    <p class="fam-heaven">Presente desde el cielo, en cada instante de este día</p>
+  </div>
+
+</section>
+
+
 <!-- 2. CUENTA REGRESIVA -->
 <section id="countdown">
   <span class="lbl">El gran día llega en</span>
@@ -1427,9 +1678,17 @@ section>*{position:relative;z-index:1}
     </a>
   </div>
 
-  <p style="text-align:center;margin-top:26px;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(15px,4vw,17px);color:var(--gold-lt);line-height:1.7">
-    <span class="gold-shine">Te esperamos puntualmente a las 4:00 PM<br>para no perdernos ni un instante juntos.</span>
-  </p>
+  <div class="punct-card" id="punctCard">
+    <div class="punct-sweep" aria-hidden="true"></div>
+    <div class="punct-clock" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.2 1.9"/>
+      </svg>
+    </div>
+    <p class="punct-eyebrow">Puntualidad</p>
+    <p class="punct-time"><span class="gold-shine">4:00 PM</span></p>
+    <p class="punct-text"><span class="gold-shine">Te esperamos puntualmente<br>para no perdernos ni un instante juntos.</span></p>
+  </div>
 </section>
 
 
@@ -1562,7 +1821,7 @@ section>*{position:relative;z-index:1}
 <!-- 7. MESA DE REGALOS -->
 <section id="gifts">
   <span class="lbl">Tu presencia es nuestro mejor regalo</span>
-  <h2 class="ttl">Mesa de Regalos</h2>
+  <h2 class="ttl">Opciones de Regalo</h2>
   <div class="gline"></div>
   <p class="gf-sub">Si deseas obsequiarnos algo especial,<br>compartimos contigo nuestras opciones.</p>
 
@@ -1774,20 +2033,66 @@ section>*{position:relative;z-index:1}
 </section>
 
 
-<!-- 10. FAMILIA -->
-<section id="family">
-  <span class="lbl">Con amor de</span>
-  <h2 class="ttl">Nuestros Padres</h2>
+<!-- 10b. CÓMO LLEGAR · AEROPUERTOS -->
+<section id="airport">
+  <span class="lbl">Cómo llegar</span>
+  <h2 class="ttl">Tu Vuelo a Orlando</h2>
   <div class="gline"></div>
+  <p class="ap-sub">Si vienes de fuera, estos son los aeropuertos<br>más cercanos a nuestra celebración.</p>
 
-  <p class="fam-ttl">Padres del Novio</p>
-  <div class="fam-card"><p class="fam-nms">Por confirmar</p></div>
+  <!-- Escena: cielo, avioncitos y aterrizaje -->
+  <div class="ap-scene" id="apScene" aria-hidden="true">
+    <span class="ap-cloud ap-cloud-1"></span>
+    <span class="ap-cloud ap-cloud-2"></span>
+    <span class="ap-cloud ap-cloud-3"></span>
 
-  <div class="sdiv"></div>
+    <!-- avioncitos pequeños volando -->
+    <span class="ap-mini ap-mini-1">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M21 15.5l-8.5-2.4V7.2a1.2 1.2 0 10-2.4 0v5.9L1.6 15.5v1.7l8.5-1.8v3.4l-2.3 1.3v1.3l3.5-.8 3.5.8v-1.3l-2.3-1.3v-3.4l8.5 1.8z"/></svg>
+    </span>
+    <span class="ap-mini ap-mini-2">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M21 15.5l-8.5-2.4V7.2a1.2 1.2 0 10-2.4 0v5.9L1.6 15.5v1.7l8.5-1.8v3.4l-2.3 1.3v1.3l3.5-.8 3.5.8v-1.3l-2.3-1.3v-3.4l8.5 1.8z"/></svg>
+    </span>
+    <span class="ap-mini ap-mini-3">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M21 15.5l-8.5-2.4V7.2a1.2 1.2 0 10-2.4 0v5.9L1.6 15.5v1.7l8.5-1.8v3.4l-2.3 1.3v1.3l3.5-.8 3.5.8v-1.3l-2.3-1.3v-3.4l8.5 1.8z"/></svg>
+    </span>
 
-  <p class="fam-ttl">Padres de la Novia</p>
-  <div class="fam-card"><p class="fam-nms">Por confirmar</p></div>
+    <!-- avión protagonista que aterriza -->
+    <span class="ap-plane" id="apPlane">
+      <span class="ap-trail" id="apTrail"></span>
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M21 16v-2l-8-5V3.5a1.5 1.5 0 00-3 0V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5z"/></svg>
+    </span>
 
+    <!-- pista de aterrizaje -->
+    <div class="ap-runway" id="apRunway">
+      <span class="ap-runway-line"></span>
+      <span class="ap-touch" id="apTouch"></span>
+    </div>
+  </div>
+
+  <div class="ap-cards">
+    <a class="ap-card ap-card-main" href="https://maps.app.goo.gl/7BvSEqoZ4cacTLBZ9?g_st=iw" target="_blank" rel="noopener">
+      <span class="ap-badge">Principal</span>
+      <span class="ap-code">MCO</span>
+      <span class="ap-name">Orlando International Airport</span>
+      <span class="ap-addr">1 Jeff Fuqua Blvd · Orlando, FL 32827</span>
+      <span class="ap-go">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        <span>Ver en Google Maps</span>
+      </span>
+    </a>
+
+    <a class="ap-card" href="https://maps.app.goo.gl/chSnAS2PfiHvFEqs8?g_st=iw" target="_blank" rel="noopener">
+      <span class="ap-badge ap-badge-alt">Alternativa</span>
+      <span class="ap-code">SFB</span>
+      <span class="ap-name">Orlando Sanford International Airport</span>
+      <span class="ap-addr">1200 Red Cleveland Blvd · Sanford, FL 32773</span>
+      <span class="ap-go">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        <span>Ver en Google Maps</span>
+      </span>
+    </a>
+  </div>
 </section>
 
 
@@ -1889,7 +2194,8 @@ section>*{position:relative;z-index:1}
   <div class="mono-rj mono-foot" role="img" aria-label="R &amp; J"></div>
   <div class="gline" style="margin-top:22px"></div>
   <p class="ft-dt">07 · Noviembre · 2026</p>
-  <p class="ft-note">Orlando · Florida · Estados Unidos<br>Con amor, los novios</p>
+  <p class="ft-destination"><span class="gold-shine">Destination Wedding</span></p>
+  <p class="ft-place">Orlando, Florida · Estados Unidos</p>
 
   <div class="el-sep"></div>
   <a href="https://www.instagram.com/elysium.invitaciones/" target="_blank" rel="noopener" class="el-credit">
@@ -1905,7 +2211,7 @@ section>*{position:relative;z-index:1}
     <button class="gm-x" id="giftClose" type="button" aria-label="Cerrar">&times;</button>
 
     <p class="gm-eyebrow">Con todo nuestro cariño</p>
-    <h3 class="gm-ttl">Nuestra Mesa de Regalos</h3>
+    <h3 class="gm-ttl">Nuestras Opciones de Regalo</h3>
     <div class="gm-rule"></div>
 
     <div class="gm-tabs" role="tablist">
@@ -1986,7 +2292,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 /* ── IDIOMA (ES / EN) ──────────────────────────────── */
-var I18N = {"Nos casamos": "We are getting married", "07 · Noviembre · 2026": "07 · November · 2026", "Desliza": "Scroll", "El gran día llega en": "The big day arrives in", "Cuenta Regresiva": "Countdown", "Días": "Days", "Horas": "Hours", "Minutos": "Minutes", "Segundos": "Seconds", "¿Dónde y cuándo?": "Where &amp; when", "La Celebración": "The Celebration", "Ceremonia &amp; Recepción": "Ceremony &amp; Reception", "Ceremonia": "Ceremony", "Recepción": "Reception", "Ver en GPS / Google Maps": "Open in GPS / Google Maps", "Te esperamos puntualmente a las 4:00 PM<br>para no perdernos ni un instante juntos.": "Please join us promptly at 4:00 PM<br>so we do not miss a single moment together.", "Juntos por siempre": "Together forever", "No lo olvides": "Do not forget", "Guarda la Fecha": "Save the Date", "Agrega nuestra boda a tu calendario<br>para no perderte ni un momento.": "Add our wedding to your calendar<br>so you do not miss a moment.", "Noviembre": "November", "Dom": "Sun", "Lun": "Mon", "Mar": "Tue", "Mié": "Wed", "Jue": "Thu", "Vie": "Fri", "Sáb": "Sat", "Sábado · El gran día": "Saturday · The big day", "Agregar a Google Calendar": "Add to Google Calendar", "El Gran Día": "The Big Day", "Itinerario": "Itinerary", "Ceremonia Religiosa": "Religious Ceremony", "Te pedimos puntualidad": "Please be on time", "Hora del Cóctel": "Cocktail Hour", "Inicia la Recepción": "Reception Begins", "Cierre del Evento": "Event Ends", "¡Hasta que el cuerpo aguante!": "Until the last dance!", "Con todo nuestro cariño": "With all our love", "Solo Adultos": "Adults Only", "Queremos que vivas esta noche<br>sin preocupaciones. Con mucho cariño,<br>te pedimos dejar a los pequeños en casa.": "We want you to enjoy this night<br>without a care. With much love,<br>we kindly ask you to leave the little ones at home.", "Una velada de adultos · Gracias por comprender": "An adults-only evening · Thank you for understanding", "Tu presencia es nuestro mejor regalo": "Your presence is our greatest gift", "Mesa de Regalos": "Gift Registry", "Si deseas obsequiarnos algo especial,<br>compartimos contigo nuestras opciones.": "If you would like to give us something special,<br>here are our options.", "Toca el regalo": "Tap the gift", "Transferencia": "Bank Transfer", "Agradecemos muchísimo tu presencia. Si deseas enviarnos un regalo o un sobre, puedes hacerlo a esta dirección:": "We are so grateful for your presence. If you would like to send a gift or a card, you can do so at this address:", "Copiar dirección": "Copy address", "Número de cuenta": "Account number", "Copiar": "Copy", "Número de ruta (routing)": "Routing number", "Cuenta interbancaria (CCI)": "Interbank account (CCI)", "Lluvia de Sobres": "Envelope Shower", "El día de la boda habrá un buzón especial<br>donde podrás depositar tu sobre con cariño.": "On the wedding day there will be a special box<br>where you can leave your envelope with love.", "Toca el sobre": "Tap the envelope", "Captura cada momento": "Capture every moment", "Álbum Compartido": "Shared Album", "Escanea el código QR y sube las fotos<br>que tomes durante el evento.": "Scan the QR code and upload the photos<br>you take during the event.", "Escanea con la cámara": "Scan with your camera", "Abrir álbum": "Open album", "Compartirás tus fotos con los demás invitados.<br>Podrás ver el álbum completo después del evento.": "You will share your photos with the other guests.<br>You can see the full album after the event.", "Vestimenta": "Attire", "Código de Vestimenta": "Dress Code", "Queremos una noche elegante, mágica y llena de brillo.<br>Vestimenta formal rigurosa: vestido largo para ellas,<br>traje oscuro con corbata para ellos.": "We want an elegant night, magical and full of sparkle.<br>Strictly formal attire: floor-length gowns for her,<br>dark suit and tie for him.", "Rasca para descubrir": "Scratch to reveal", "Mostrar la imagen completa": "Show the full image", "Verla en grande": "View it larger", "Nuestro toque especial — toca para abrir": "Our special touch — tap to open", "Nos encantaría ver un destello dorado en tu look — en el vestido, los accesorios, la corbata o el pañuelo — a juego con nuestra celebración fucsia, dorada y blanca. ✨": "We would love to see a golden touch in your look — on your dress, accessories, tie or pocket square — to match our fuchsia, gold and white celebration. ✨", "Colores sugeridos": "Suggested colors", "Negro": "Black", "Fucsia": "Fuchsia", "Rosa": "Pink", "Por favor evitar": "Please avoid", "Blanco / Ivory": "White / Ivory", "Rojo intenso": "Bright red", "Queremos que brilles — pero que el fucsia y el dorado<br>sean los protagonistas de la noche.": "We want you to shine — but let fuchsia and gold<br>be the stars of the night.", "Toma precauciones": "Plan ahead", "prepárate para la ocasión": "be ready for the occasion", "Prob. de lluvia": "Chance of rain", "Día": "Day", "Noche": "Night", "Noviembre en Orlando es cálido de día y templado al caer la noche": "November in Orlando is warm by day and mild as night falls", "Consulta el pronóstico actualizado": "Check the updated forecast", "Con amor de": "With love from", "Nuestros Padres": "Our Parents", "Padres del Novio": "Groom&#39;s Parents", "Padres de la Novia": "Bride&#39;s Parents", "Por confirmar": "To be confirmed", "Nosotros": "About us", "Nuestra Historia": "Our Story", "Cada imagen, un capítulo de nuestra historia de amor.": "Each image, a chapter of our love story.", "Arrastra para girar": "Drag to spin", "Confirmación": "RSVP", "¿Nos acompañas?": "Will you join us?", "¡Ahí estaré!": "I will be there!", "No podré asistir": "I cannot make it", "Confirmar asistencia": "Confirm attendance", "Fecha límite · 4 Oct 2026": "Deadline · Oct 4, 2026", "Orlando · Florida · Estados Unidos": "Orlando · Florida · United States", "Con amor, los novios": "With love, the bride &amp; groom", "Diseño por @elysium.invitaciones": "Designed by @elysium.invitaciones", "Toca para abrir": "Tap to open", "El clima <em style=\"font-style:italic;color:var(--gold-dk)\">esa</em> semana": "The weather <em style=\"font-style:italic;color:var(--gold-dk)\">that</em> week", "La boda se celebra en noviembre, una de las épocas más agradables de Florida. Las tardes son cálidas y <strong>las noches templadas</strong>. Un chal ligero será más que suficiente para estar cómoda toda la velada.": "The wedding takes place in November, one of the loveliest times of year in Florida. Afternoons are warm and <strong>the evenings mild</strong>. A light wrap will be more than enough to stay comfortable all night.", "Confirma tu asistencia antes del <strong style=\"color:var(--gold)\">4 de Octubre de 2026</strong>. Nos encantará saber que estarás con nosotros.": "Please confirm your attendance before <strong style=\"color:var(--gold)\">October 4, 2026</strong>. We would love to know you will be with us.", "Algunas historias de amor comienzan con magia — la nuestra comenzó en Disney, donde nuestras citas se convirtieron en recuerdos que aún guardamos en el corazón. Durante casi tres años hemos vivido entre maletas y aeropuertos, con John cruzando hasta Perú una y otra vez solo para mantenernos juntos, entre holas y adioses que solo hicieron nuestro amor más fuerte. Un año y medio a distancia nos enseñó que el amor no se mide en millas, sino en elegirnos cada día. Hoy, después de todas esas millas que nos trajeron hasta aquí, estamos listos para comenzar donde siempre pertenecimos — juntos en nuestro para siempre.": "Some love stories begin with magic — ours began at Disney, where our dates turned into memories we still hold close. For almost three years we have lived between suitcases and airports, with John crossing to Peru many times just to hold us together, between hellos and goodbyes that only made our love stronger. A year and a half of distance taught us that love is not about the miles, but about choosing each other every single day. Today, after all the miles that brought us here, we are ready to begin where we always belonged — together in our forever.", "Nuestro toque especial": "Our special touch", "Orlando · Florida · Estados Unidos<br>Con amor, los novios": "Orlando · Florida · United States<br>With love, the bride &amp; groom", "Nuestra Mesa de Regalos": "Our Gift Registry", "Dirección": "Address"};
+var I18N = {"Con la bendición de": "With the blessing of", "Donde empieza la magia": "Where the magic begins", "Puntualidad": "Punctuality", "Te esperamos puntualmente<br>para no perdernos ni un instante juntos.": "Please join us promptly<br>so we do not miss a single moment together.", "Presente desde el cielo, en cada instante de este día": "Present from heaven, in every moment of this day", "Opciones de Regalo": "Gift Options", "Nuestras Opciones de Regalo": "Our Gift Options", "Cómo llegar": "Getting there", "Tu Vuelo a Orlando": "Your Flight to Orlando", "Si vienes de fuera, estos son los aeropuertos<br>más cercanos a nuestra celebración.": "If you are travelling in, these are the closest airports<br>to our celebration.", "Principal": "Main", "Alternativa": "Alternative", "Ver en Google Maps": "Open in Google Maps", "Orlando, Florida · Estados Unidos": "Orlando, Florida · United States", "Nos casamos": "We are getting married", "07 · Noviembre · 2026": "07 · November · 2026", "Desliza": "Scroll", "El gran día llega en": "The big day arrives in", "Cuenta Regresiva": "Countdown", "Días": "Days", "Horas": "Hours", "Minutos": "Minutes", "Segundos": "Seconds", "¿Dónde y cuándo?": "Where &amp; when", "La Celebración": "The Celebration", "Ceremonia &amp; Recepción": "Ceremony &amp; Reception", "Ceremonia": "Ceremony", "Recepción": "Reception", "Ver en GPS / Google Maps": "Open in GPS / Google Maps", "Te esperamos puntualmente a las 4:00 PM<br>para no perdernos ni un instante juntos.": "Please join us promptly at 4:00 PM<br>so we do not miss a single moment together.", "Juntos por siempre": "Together forever", "No lo olvides": "Do not forget", "Guarda la Fecha": "Save the Date", "Agrega nuestra boda a tu calendario<br>para no perderte ni un momento.": "Add our wedding to your calendar<br>so you do not miss a moment.", "Noviembre": "November", "Dom": "Sun", "Lun": "Mon", "Mar": "Tue", "Mié": "Wed", "Jue": "Thu", "Vie": "Fri", "Sáb": "Sat", "Sábado · El gran día": "Saturday · The big day", "Agregar a Google Calendar": "Add to Google Calendar", "El Gran Día": "The Big Day", "Itinerario": "Itinerary", "Ceremonia Religiosa": "Religious Ceremony", "Te pedimos puntualidad": "Please be on time", "Hora del Cóctel": "Cocktail Hour", "Inicia la Recepción": "Reception Begins", "Cierre del Evento": "Event Ends", "¡Hasta que el cuerpo aguante!": "Until the last dance!", "Con todo nuestro cariño": "With all our love", "Solo Adultos": "Adults Only", "Queremos que vivas esta noche<br>sin preocupaciones. Con mucho cariño,<br>te pedimos dejar a los pequeños en casa.": "We want you to enjoy this night<br>without a care. With much love,<br>we kindly ask you to leave the little ones at home.", "Una velada de adultos · Gracias por comprender": "An adults-only evening · Thank you for understanding", "Tu presencia es nuestro mejor regalo": "Your presence is our greatest gift", "Mesa de Regalos": "Gift Registry", "Si deseas obsequiarnos algo especial,<br>compartimos contigo nuestras opciones.": "If you would like to give us something special,<br>here are our options.", "Toca el regalo": "Tap the gift", "Transferencia": "Bank Transfer", "Agradecemos muchísimo tu presencia. Si deseas enviarnos un regalo o un sobre, puedes hacerlo a esta dirección:": "We are so grateful for your presence. If you would like to send a gift or a card, you can do so at this address:", "Copiar dirección": "Copy address", "Número de cuenta": "Account number", "Copiar": "Copy", "Número de ruta (routing)": "Routing number", "Cuenta interbancaria (CCI)": "Interbank account (CCI)", "Lluvia de Sobres": "Envelope Shower", "El día de la boda habrá un buzón especial<br>donde podrás depositar tu sobre con cariño.": "On the wedding day there will be a special box<br>where you can leave your envelope with love.", "Toca el sobre": "Tap the envelope", "Captura cada momento": "Capture every moment", "Álbum Compartido": "Shared Album", "Escanea el código QR y sube las fotos<br>que tomes durante el evento.": "Scan the QR code and upload the photos<br>you take during the event.", "Escanea con la cámara": "Scan with your camera", "Abrir álbum": "Open album", "Compartirás tus fotos con los demás invitados.<br>Podrás ver el álbum completo después del evento.": "You will share your photos with the other guests.<br>You can see the full album after the event.", "Vestimenta": "Attire", "Código de Vestimenta": "Dress Code", "Queremos una noche elegante, mágica y llena de brillo.<br>Vestimenta formal rigurosa: vestido largo para ellas,<br>traje oscuro con corbata para ellos.": "We want an elegant night, magical and full of sparkle.<br>Strictly formal attire: floor-length gowns for her,<br>dark suit and tie for him.", "Rasca para descubrir": "Scratch to reveal", "Mostrar la imagen completa": "Show the full image", "Verla en grande": "View it larger", "Nuestro toque especial — toca para abrir": "Our special touch — tap to open", "Nos encantaría ver un destello dorado en tu look — en el vestido, los accesorios, la corbata o el pañuelo — a juego con nuestra celebración fucsia, dorada y blanca. ✨": "We would love to see a golden touch in your look — on your dress, accessories, tie or pocket square — to match our fuchsia, gold and white celebration. ✨", "Colores sugeridos": "Suggested colors", "Negro": "Black", "Fucsia": "Fuchsia", "Rosa": "Pink", "Por favor evitar": "Please avoid", "Blanco / Ivory": "White / Ivory", "Rojo intenso": "Bright red", "Queremos que brilles — pero que el fucsia y el dorado<br>sean los protagonistas de la noche.": "We want you to shine — but let fuchsia and gold<br>be the stars of the night.", "Toma precauciones": "Plan ahead", "prepárate para la ocasión": "be ready for the occasion", "Prob. de lluvia": "Chance of rain", "Día": "Day", "Noche": "Night", "Noviembre en Orlando es cálido de día y templado al caer la noche": "November in Orlando is warm by day and mild as night falls", "Consulta el pronóstico actualizado": "Check the updated forecast", "Con amor de": "With love from", "Nuestros Padres": "Our Parents", "Padres del Novio": "Groom&#39;s Parents", "Padres de la Novia": "Bride&#39;s Parents", "Por confirmar": "To be confirmed", "Nosotros": "About us", "Nuestra Historia": "Our Story", "Cada imagen, un capítulo de nuestra historia de amor.": "Each image, a chapter of our love story.", "Arrastra para girar": "Drag to spin", "Confirmación": "RSVP", "¿Nos acompañas?": "Will you join us?", "¡Ahí estaré!": "I will be there!", "No podré asistir": "I cannot make it", "Confirmar asistencia": "Confirm attendance", "Fecha límite · 4 Oct 2026": "Deadline · Oct 4, 2026", "Orlando · Florida · Estados Unidos": "Orlando · Florida · United States", "Con amor, los novios": "With love, the bride &amp; groom", "Diseño por @elysium.invitaciones": "Designed by @elysium.invitaciones", "Toca para abrir": "Tap to open", "El clima <em style=\"font-style:italic;color:var(--gold-dk)\">esa</em> semana": "The weather <em style=\"font-style:italic;color:var(--gold-dk)\">that</em> week", "La boda se celebra en noviembre, una de las épocas más agradables de Florida. Las tardes son cálidas y <strong>las noches templadas</strong>. Un chal ligero será más que suficiente para estar cómoda toda la velada.": "The wedding takes place in November, one of the loveliest times of year in Florida. Afternoons are warm and <strong>the evenings mild</strong>. A light wrap will be more than enough to stay comfortable all night.", "Confirma tu asistencia antes del <strong style=\"color:var(--gold)\">4 de Octubre de 2026</strong>. Nos encantará saber que estarás con nosotros.": "Please confirm your attendance before <strong style=\"color:var(--gold)\">October 4, 2026</strong>. We would love to know you will be with us.", "Algunas historias de amor comienzan con magia — la nuestra comenzó en Disney, donde nuestras citas se convirtieron en recuerdos que aún guardamos en el corazón. Durante casi tres años hemos vivido entre maletas y aeropuertos, con John cruzando hasta Perú una y otra vez solo para mantenernos juntos, entre holas y adioses que solo hicieron nuestro amor más fuerte. Un año y medio a distancia nos enseñó que el amor no se mide en millas, sino en elegirnos cada día. Hoy, después de todas esas millas que nos trajeron hasta aquí, estamos listos para comenzar donde siempre pertenecimos — juntos en nuestro para siempre.": "Some love stories begin with magic — ours began at Disney, where our dates turned into memories we still hold close. For almost three years we have lived between suitcases and airports, with John crossing to Peru many times just to hold us together, between hellos and goodbyes that only made our love stronger. A year and a half of distance taught us that love is not about the miles, but about choosing each other every single day. Today, after all the miles that brought us here, we are ready to begin where we always belonged — together in our forever.", "Nuestro toque especial": "Our special touch", "Orlando · Florida · Estados Unidos<br>Con amor, los novios": "Orlando · Florida · United States<br>With love, the bride &amp; groom", "Nuestra Mesa de Regalos": "Our Gift Registry", "Dirección": "Address"};
 
 /* textos que genera el JS en caliente */
 var I18N_JS = {
@@ -2095,7 +2401,7 @@ function applyLang(lang){
     if (invitationReady) return;
     invitationReady = true;
     envScreen.style.display = 'none';
-    document.getElementById('main-content').style.visibility = 'visible';
+    document.getElementById('main-content').style.opacity = '1';
     heroAnim();
     spawnParticles();
     initBgOrbs();
@@ -2177,7 +2483,7 @@ function heroAnim() {
     .to('#hScroll',{ opacity: 1, duration: .6 }, 1.9);
 
   gsap.to('#heroBg', {
-    yPercent: 22, ease: 'none',
+    yPercent: 5, ease: 'none',
     scrollTrigger: { trigger: '#hero', start: 'top top', end: 'bottom top', scrub: true }
   });
 }
@@ -2447,6 +2753,78 @@ function scrollAnims() {
     opacity: 0, y: 22, duration: .65, stagger: .12, ease,
     scrollTrigger: { trigger: '#footer', start: 'top 90%', once: true }
   });
+
+  /* ── AEROPUERTO · aterrizaje al centrar la sección ── */
+  (function(){
+    var scene  = document.getElementById('apScene');
+    var plane  = document.getElementById('apPlane');
+    var trail  = document.getElementById('apTrail');
+    var runway = document.getElementById('apRunway');
+    var touch  = document.getElementById('apTouch');
+    if(!scene || !plane || !runway) return;
+
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // posiciones relativas a la escena
+    function landing(){
+      var w = scene.clientWidth, h = scene.clientHeight;
+      var startX = -w * 0.22, startY = -h * 0.02;
+      var endX   = w * 0.30,  endY   = h * 0.56;   // toca pista
+      var taxiX  = w * 0.62;
+
+      gsap.set(plane, { x: startX, y: startY, rotation: 8, scale: 1 });
+      gsap.set(trail, { width: 0, opacity: 0 });
+      gsap.set(runway, { opacity: 0 });
+      gsap.set(touch, { scale: 0, opacity: 0, left: endX + plane.offsetWidth * 0.5 });
+
+      if(reduce){
+        gsap.set(runway, { opacity: 1 });
+        gsap.set(plane, { x: taxiX, y: endY, rotation: 0 });
+        return;
+      }
+
+      var tl = gsap.timeline();
+      // 1 · aparece la pista
+      tl.to(runway, { opacity: 1, duration: .5, ease: 'power2.out' }, 0)
+      // 2 · estela y descenso en curva
+        .to(trail, { width: 46, opacity: 1, duration: .5, ease: 'power2.out' }, .15)
+        .to(plane, { x: endX, duration: 1.7, ease: 'none' }, .2)
+        .to(plane, { y: endY, duration: 1.7, ease: 'power2.in' }, .2)
+        .to(plane, { rotation: 0, duration: .9, ease: 'power2.out' }, .9)
+      // 3 · toque de ruedas: destello + rebote suave
+        .to(touch, { scale: 1, opacity: 1, duration: .28, ease: 'power2.out' }, 1.9)
+        .to(touch, { scale: 2.1, opacity: 0, duration: .6, ease: 'power2.out' }, 2.1)
+        .to(plane, { y: endY - 5, duration: .16, ease: 'power2.out' }, 1.95)
+        .to(plane, { y: endY, duration: .22, ease: 'power2.in' }, 2.11)
+      // 4 · frena y rueda por la pista
+        .to(trail, { width: 0, opacity: 0, duration: .5, ease: 'power2.in' }, 1.95)
+        .to(plane, { x: taxiX, duration: 1.5, ease: 'power3.out' }, 2.1);
+      return tl;
+    }
+
+    /* Se dispara cuando el CENTRO de la sección entra en pantalla.
+       Se mide por rect (no por ratio) para que funcione aunque la sección
+       sea más alta que el viewport. */
+    var sec = document.getElementById('airport');
+    var lanzado = false;
+
+    function revisar(){
+      if(lanzado) return;
+      var r = sec.getBoundingClientRect();
+      var vh = window.innerHeight || document.documentElement.clientHeight;
+      var centro = r.top + r.height / 2;
+      if(centro < vh * 0.88 && centro > vh * 0.05){
+        lanzado = true;
+        window.removeEventListener('scroll', revisar);
+        window.removeEventListener('resize', revisar);
+        landing();
+      }
+    }
+
+    window.addEventListener('scroll', revisar, { passive: true });
+    window.addEventListener('resize', revisar, { passive: true });
+    revisar();
+  })();
 }
 
 /* ── COUNTDOWN ─────────────────────────────────────── */
